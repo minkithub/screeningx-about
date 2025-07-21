@@ -4,12 +4,14 @@ import Header from '@/components/header';
 import FeatureSection from '@/components/feature-section';
 import Footer from '@/components/footer';
 import { useEffect, useRef, useState } from 'react';
+import References from '@/components/references';
 
-type Section = 'header' | 'feature' | 'footer';
+type Section = 'header' | 'feature' | 'references' | 'footer';
 
 export default function Home() {
   const headerRef = useRef<HTMLDivElement>(null);
   const featureSectionRef = useRef<HTMLDivElement>(null);
+  const referencesRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
 
   const [currentSection, setCurrentSection] = useState<Section>('header');
@@ -35,6 +37,8 @@ export default function Home() {
         ? headerRef
         : section === 'feature'
         ? featureSectionRef
+        : section === 'references'
+        ? referencesRef
         : footerRef;
 
     if (section === 'header') {
@@ -80,11 +84,17 @@ export default function Home() {
       const scrollY = window.scrollY;
       const headerHeight = headerRef.current?.offsetHeight || 0;
       const featureSectionHeight = featureSectionRef.current?.offsetHeight || 0;
+      const referencesHeight = referencesRef.current?.offsetHeight || 0;
 
       if (scrollY < headerHeight / 2) {
         setCurrentSection('header');
       } else if (scrollY < headerHeight + featureSectionHeight / 2) {
         setCurrentSection('feature');
+      } else if (
+        scrollY <
+        headerHeight + featureSectionHeight + referencesHeight / 2
+      ) {
+        setCurrentSection('references');
       } else {
         setCurrentSection('footer');
       }
@@ -105,7 +115,16 @@ export default function Home() {
 
       // 쿨다운 체크
       if (now - lastScrollTime.current < cooldownDuration) {
+        // references 섹션에서는 자연스러운 스크롤 허용
+        if (currentSection === 'references') {
+          return;
+        }
         e.preventDefault();
+        return;
+      }
+
+      // references 섹션에서는 자연스러운 스크롤 허용
+      if (currentSection === 'references') {
         return;
       }
 
@@ -130,15 +149,17 @@ export default function Home() {
           if (currentSlide < maxSlides - 1) {
             changeSlide('next');
           } else {
-            scrollToSection('footer');
+            // 마지막 슬라이드면 References로
+            scrollToSection('references');
             lastScrollTime.current = now;
             scrollAccumulator.current = 0;
           }
         }
+        // references 섹션에서 footer로 넘어가는 로직 제거
       } else {
         // 위로 스크롤
         if (currentSection === 'footer') {
-          scrollToSection('feature');
+          scrollToSection('references');
           lastScrollTime.current = now;
           scrollAccumulator.current = 0;
         } else if (currentSection === 'feature') {
@@ -169,7 +190,16 @@ export default function Home() {
 
       // 쿨다운 체크
       if (now - lastScrollTime.current < cooldownDuration) {
+        // references 섹션에서는 자연스러운 터치 허용
+        if (currentSection === 'references') {
+          return;
+        }
         e.preventDefault();
+        return;
+      }
+
+      // references 섹션에서는 자연스러운 터치 허용
+      if (currentSection === 'references') {
         return;
       }
 
@@ -191,13 +221,14 @@ export default function Home() {
           if (currentSlide < maxSlides - 1) {
             changeSlide('next');
           } else {
-            scrollToSection('footer');
+            scrollToSection('references');
           }
         }
+        // references 섹션에서 footer로 넘어가는 터치 로직 제거
       } else {
         // 아래로 스와이프 (위로 이동)
         if (currentSection === 'footer') {
-          scrollToSection('feature');
+          scrollToSection('references');
         } else if (currentSection === 'feature') {
           if (currentSlide > 0) {
             changeSlide('prev');
@@ -242,6 +273,11 @@ export default function Home() {
       {/* Feature Section */}
       <div ref={featureSectionRef}>
         <FeatureSection currentSlide={currentSlide} />
+      </div>
+
+      {/* References Section */}
+      <div ref={referencesRef}>
+        <References />
       </div>
 
       {/* Footer */}
