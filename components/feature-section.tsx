@@ -325,7 +325,7 @@ export default function FeatureSection() {
 
           {/* 슬라이드 이미지 컨테이너 */}
           <div
-            className="absolute transition-opacity duration-300 ease-in-out feature-slide"
+            className="absolute feature-slide-container"
             style={{
               width: slideStyles.width,
               height: slideStyles.height,
@@ -333,15 +333,48 @@ export default function FeatureSection() {
               top: slideStyles.top,
               transform: slideStyles.transform,
               visibility: isImageLoaded ? 'visible' : 'hidden',
+              overflow: 'visible',
             }}>
-            <Image
-              src={slideImages[currentSlide]}
-              alt={`슬라이드 ${currentSlide + 1}`}
-              width={parseInt(slideStyles.width)}
-              height={parseInt(slideStyles.height)}
-              className="object-contain transition-opacity duration-300"
-              priority
-            />
+            {/* 모든 슬라이드 렌더링 */}
+            {slideImages.map((imageSrc, index) => {
+              // 현재 슬라이드를 기준으로 상대적 위치 계산
+              const relativePosition = index - currentSlide;
+              const leftPosition = relativePosition * 105; // 105% 간격으로 배치
+
+              // 현재 슬라이드 주변만 렌더링 (성능 최적화)
+              if (Math.abs(relativePosition) > 1) return null;
+
+              // 투명도 계산
+              let opacity = 1;
+              if (relativePosition === 1) {
+                opacity = 0.6; // 다음 슬라이드
+              } else if (relativePosition === -1) {
+                opacity = 0.3; // 이전 슬라이드 (혹시 필요할 때를 위해)
+              }
+
+              return (
+                <div
+                  key={index}
+                  className="absolute transition-all duration-500 ease-out"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    left: `${leftPosition}%`,
+                    top: '0',
+                    opacity: opacity,
+                    transform: 'scale(1)',
+                  }}>
+                  <Image
+                    src={imageSrc}
+                    alt={`슬라이드 ${index + 1}`}
+                    width={parseInt(slideStyles.width)}
+                    height={parseInt(slideStyles.height)}
+                    className="object-contain"
+                    priority={index === currentSlide}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
