@@ -47,7 +47,7 @@ export default function FloatingChatInput({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="반려동물에 관한 무엇이든 질문하세요."
-            className="flex-1 px-4 py-3 bg-white focus:outline-none text-gray-700 placeholder-gray-400"
+            className="flex-1 px-4 py-3 focus:outline-none text-gray-700 placeholder-gray-400"
             disabled={isSendingMessage}
           />
           <button
