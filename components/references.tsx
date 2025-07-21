@@ -155,7 +155,7 @@ export default function References() {
                     <span className="text-black font-semibold text-sm">
                       {reference.title}
                     </span>
-                    <span className="text-gray-600 text-sm ml-1">
+                    <span className="text-gray-500 font-semibold text-sm ml-1">
                       {reference.description}
                     </span>
                   </div>
