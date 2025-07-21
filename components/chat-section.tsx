@@ -133,13 +133,13 @@ export default function ChatSection() {
           {/* Chat Input */}
           <form
             onSubmit={handleChatSubmit}
-            className="flex items-center space-x-3 bg-white rounded-full p-2 shadow-sm border border-gray-200">
+            className="flex items-center space-x-3 bg-white rounded-full p-1 shadow-sm border border-gray-200">
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="반려동물에 관한 무엇이든 질문하세요."
-              className="flex-1 px-4 py-3 bg-transparent focus:outline-none text-gray-700 text-sm"
+              className="flex-1 px-4 py-3 bg-transparent focus:outline-none text-gray-700"
               disabled={isSendingMessage}
             />
             <button
