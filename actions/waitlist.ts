@@ -9,6 +9,7 @@ const web = new WebClient(slackToken);
 
 interface ApplicationData {
   contact: string; // 사용자 이메일 주소
+  chatMessage?: string; // 채팅 메시지 (선택적)
 }
 
 export async function sendSlackNotification(message: string) {
@@ -23,12 +24,12 @@ export async function sendSlackNotification(message: string) {
   }
 }
 
-export async function sendApplicationNotification(data: ApplicationData) {
-  const message = `🎉 펫쏙쏙 출시 알림 신청
+export async function sendChatMessage(chatMessage: string) {
+  const message = `💬 펫쏙쏙 채팅 메시지
 
-*이메일:* ${data.contact}
+*메시지:* ${chatMessage}
 
-신청 시간: ${new Date().toLocaleString('ko-KR')}`;
+시간: ${new Date().toLocaleString('ko-KR')}`;
 
   try {
     await web.chat.postMessage({
@@ -39,28 +40,90 @@ export async function sendApplicationNotification(data: ApplicationData) {
           type: 'header',
           text: {
             type: 'plain_text',
-            text: '🎉 펫쏙쏙 출시 알림 신청',
+            text: '💬 펫쏙쏙 채팅 메시지',
           },
         },
         {
           type: 'section',
-          fields: [
-            {
-              type: 'mrkdwn',
-              text: `*이메일:*\n${data.contact}`,
-            },
-          ],
+          text: {
+            type: 'mrkdwn',
+            text: `*메시지:*\n${chatMessage}`,
+          },
         },
         {
           type: 'context',
           elements: [
             {
               type: 'mrkdwn',
-              text: `신청 시간: ${new Date().toLocaleString('ko-KR')}`,
+              text: `시간: ${new Date().toLocaleString('ko-KR')}`,
             },
           ],
         },
       ],
+    });
+  } catch (error) {
+    console.error('Error sending chat message:', error);
+    throw error;
+  }
+}
+
+export async function sendApplicationNotification(data: ApplicationData) {
+  const baseMessage = `🎉 펫쏙쏙 출시 알림 신청
+
+*이메일:* ${data.contact}`;
+
+  const chatSection = data.chatMessage
+    ? `\n*채팅 메시지:* ${data.chatMessage}\n`
+    : '\n';
+
+  const message = `${baseMessage}${chatSection}
+신청 시간: ${new Date().toLocaleString('ko-KR')}`;
+
+  const blocks: any[] = [
+    {
+      type: 'header',
+      text: {
+        type: 'plain_text',
+        text: '🎉 펫쏙쏙 출시 알림 신청',
+      },
+    },
+    {
+      type: 'section',
+      fields: [
+        {
+          type: 'mrkdwn',
+          text: `*이메일:*\n${data.contact}`,
+        },
+      ],
+    },
+  ];
+
+  // 채팅 메시지가 있는 경우 추가
+  if (data.chatMessage) {
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*채팅 메시지:*\n${data.chatMessage}`,
+      },
+    });
+  }
+
+  blocks.push({
+    type: 'context',
+    elements: [
+      {
+        type: 'mrkdwn',
+        text: `신청 시간: ${new Date().toLocaleString('ko-KR')}`,
+      },
+    ],
+  });
+
+  try {
+    await web.chat.postMessage({
+      channel: channelId!,
+      text: message,
+      blocks: blocks,
     });
   } catch (error) {
     console.error('Error sending application notification:', error);

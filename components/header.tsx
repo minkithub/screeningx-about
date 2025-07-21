@@ -67,7 +67,7 @@ export default function Header({ onApplyClick }: HeaderProps) {
               variant="outline"
               onClick={onApplyClick}
               className="border-0 hover:bg-blue-500 hover:text-white rounded-full px-10 py-3 bg-black text-white font-medium transition-all duration-200">
-              신청하기
+              채팅하기
             </Button>
           </div>
         </div>
