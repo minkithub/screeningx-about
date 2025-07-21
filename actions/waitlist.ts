@@ -8,7 +8,7 @@ const channelId = process.env.SLACK_CHANNEL_ID;
 const web = new WebClient(slackToken);
 
 interface ApplicationData {
-  contact: string; // 사용자 이메일 주소
+  contact: string; // 사용자 전화번호
   chatMessage?: string; // 채팅 메시지 (선택적)
 }
 
@@ -70,7 +70,7 @@ export async function sendChatMessage(chatMessage: string) {
 export async function sendApplicationNotification(data: ApplicationData) {
   const baseMessage = `🎉 펫쏙쏙 출시 알림 신청
 
-*이메일:* ${data.contact}`;
+*전화번호:* ${data.contact}`;
 
   const chatSection = data.chatMessage
     ? `\n*채팅 메시지:* ${data.chatMessage}\n`
@@ -92,7 +92,7 @@ export async function sendApplicationNotification(data: ApplicationData) {
       fields: [
         {
           type: 'mrkdwn',
-          text: `*이메일:*\n${data.contact}`,
+          text: `*전화번호:*\n${data.contact}`,
         },
       ],
     },
