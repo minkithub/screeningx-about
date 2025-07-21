@@ -206,18 +206,6 @@ export default function ChatSection() {
               )}
 
               <div className="text-center mb-6">
-                <p>
-                  <span className="text-2xl font-bold text-gradient-footer mb-4">
-                    답변이 궁금하다면?
-                    <br />
-                    사전 신청하고,
-                    <br />
-                    출시 알림 받기
-                  </span>
-
-                  <span> 📩</span>
-                </p>
-
                 <p className="text-gray-700 text-lg mb-4 font-bold">
                   반려인들의 걱정을 덜어드리고자,
                   <br />
