@@ -40,7 +40,10 @@ export default function Footer() {
         <div className="max-w-2xl mx-auto text-center">
           <p className="mb-6">
             <span className="text-3xl font-bold text-gradient-footer mb-6">
-              사전 신청하고, <br />
+              답변이 궁금하다면?
+              <br />
+              사전 신청하고,
+              <br />
               출시 알림 받기
             </span>
             <span className="text-3xl mb-6"> 📩</span>
@@ -53,7 +56,7 @@ export default function Footer() {
           </p>
 
           <p className="text-gray-600 text-base mb-8">
-            이메일을 남겨주시면 서비스 출시 소식을 가장 먼저 알려드릴게요
+            사전 신청해주신 분들에게 안내드릴게요
             <br />
             펫쏙쏙을 응원해주세요 !
           </p>
@@ -69,7 +72,7 @@ export default function Footer() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="example@petsoksok.com"
+                  placeholder="patss@gmail.com"
                   className="w-full max-w-xs mx-auto px-8 py-4 text-center text-gray-600 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -78,8 +81,8 @@ export default function Footer() {
               <Button
                 type="submit"
                 disabled={isLoading || !email.trim()}
-                className="w-full max-w-xs mx-auto bg-custom-yellow hover:bg-custom-yellow text-black font-medium px-8 py-6 rounded-full text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed h-16">
-                {isLoading ? '등록 중...' : '이메일로 출시 알림 받기'}
+                className="w-full max-w-xs mx-auto font-medium px-8 py-6 rounded-full text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed h-16">
+                {isLoading ? '등록 중...' : '사전 신청 등록하기'}
               </Button>
             </form>
           )}
@@ -105,7 +108,7 @@ export default function Footer() {
             <div className="text-left">
               <h4 className="text-lg font-semibold mb-4">문의 및 뉴스레터</h4>
               <div className="flex flex-col justify-left space-y-2 text-gray-300 text-sm">
-                <p>문의: support@petsoksok.com</p>
+                <p>문의: support@sliver.co.kr</p>
                 <p className="text-gray-400">
                   출시 알림 및 업데이트 소식을 이메일로 받아보세요
                 </p>

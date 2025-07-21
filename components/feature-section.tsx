@@ -3,12 +3,9 @@
 import Image from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
-interface FeatureSectionProps {
-  currentSlide: number;
-}
-
-export default function FeatureSection({ currentSlide }: FeatureSectionProps) {
+export default function FeatureSection() {
   const slideImages = ['/s1.png', '/s2.png', '/s3.png', '/s4.png'];
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [slideStyles, setSlideStyles] = useState({
     width: '240px',
     height: '426px',
@@ -19,6 +16,30 @@ export default function FeatureSection({ currentSlide }: FeatureSectionProps) {
   const backgroundRef = useRef<HTMLDivElement>(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [viewportHeight, setViewportHeight] = useState('100vh');
+  const [initialHeight, setInitialHeight] = useState<number | null>(null);
+
+  // Touch 관련 상태
+  const [touchStartX, setTouchStartX] = useState<number>(0);
+  const [touchStartY, setTouchStartY] = useState<number>(0);
+  const [isSwiping, setIsSwiping] = useState(false);
+
+  // Mouse 관련 상태
+  const [mouseStartX, setMouseStartX] = useState<number>(0);
+  const [mouseStartY, setMouseStartY] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  // 슬라이드 변경 함수
+  const changeSlide = useCallback(
+    (direction: 'next' | 'prev') => {
+      if (direction === 'next') {
+        setCurrentSlide((prev) => Math.min(prev + 1, slideImages.length - 1));
+      } else {
+        setCurrentSlide((prev) => Math.max(prev - 1, 0));
+      }
+    },
+    [slideImages.length]
+  );
 
   // viewport 높이 감지 및 설정
   useEffect(() => {
@@ -27,23 +48,44 @@ export default function FeatureSection({ currentSlide }: FeatureSectionProps) {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-      // 모바일에서는 동적 높이 사용
-      if (window.innerWidth <= 768) {
-        setViewportHeight(`${window.innerHeight}px`);
-      } else {
-        setViewportHeight('100vh');
+      // 초기 높이가 설정되지 않았다면 현재 높이를 초기 높이로 저장
+      if (initialHeight === null) {
+        const currentHeight = window.innerHeight;
+        setInitialHeight(currentHeight);
+
+        // 모바일에서는 초기 높이를 고정하여 사용
+        if (window.innerWidth <= 768) {
+          setViewportHeight(`${currentHeight}px`);
+        } else {
+          setViewportHeight('100vh');
+        }
       }
     };
 
+    // orientation change나 resize 시에만 높이 재계산 (스크롤로 인한 변화는 무시)
+    const handleOrientationChange = () => {
+      setTimeout(() => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        const currentHeight = window.innerHeight;
+        setInitialHeight(currentHeight);
+
+        if (window.innerWidth <= 768) {
+          setViewportHeight(`${currentHeight}px`);
+        } else {
+          setViewportHeight('100vh');
+        }
+      }, 100);
+    };
+
     setVH();
-    window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', setVH);
+    window.addEventListener('orientationchange', handleOrientationChange);
 
     return () => {
-      window.removeEventListener('resize', setVH);
-      window.removeEventListener('orientationchange', setVH);
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
-  }, []);
+  }, [initialHeight]);
 
   // 슬라이드 위치 계산 함수 - useCallback으로 최적화
   const calculateSlidePosition = useCallback(() => {
@@ -59,7 +101,7 @@ export default function FeatureSection({ currentSlide }: FeatureSectionProps) {
     }
 
     // feature.png의 원본 비율
-    const featureAspectRatio = 0.6;
+    const featureAspectRatio = 0.55;
 
     let actualFeatureWidth, actualFeatureHeight, featureLeft, featureTop;
 
@@ -125,14 +167,136 @@ export default function FeatureSection({ currentSlide }: FeatureSectionProps) {
     }
   }, [isImageLoaded, calculateSlidePosition]);
 
+  // 키보드 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        changeSlide('prev');
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        changeSlide('next');
+      }
+    };
+
+    // 마우스 휠 이벤트 처리 (좌우 스크롤)
+    const handleWheel = (e: WheelEvent) => {
+      // 수평 스크롤이 있는 경우 또는 Shift + 휠인 경우
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
+        e.preventDefault();
+        if (e.deltaX > 0 || (e.shiftKey && e.deltaY > 0)) {
+          changeSlide('next');
+        } else if (e.deltaX < 0 || (e.shiftKey && e.deltaY < 0)) {
+          changeSlide('prev');
+        }
+      }
+    };
+
+    // 마우스 전역 이벤트 처리
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isMouseDown || !isDragging) return;
+
+      const deltaX = mouseStartX - e.clientX;
+      const deltaY = Math.abs(mouseStartY - e.clientY);
+
+      // 수평 드래그가 수직 드래그보다 큰 경우에만 처리
+      if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          changeSlide('next');
+        } else {
+          changeSlide('prev');
+        }
+        setIsMouseDown(false);
+        setIsDragging(false);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+      setIsDragging(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [changeSlide, isMouseDown, isDragging, mouseStartX, mouseStartY]);
+
+  // 터치 이벤트 핸들러
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+    setIsSwiping(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isSwiping) return;
+
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+    const deltaX = Math.abs(touchX - touchStartX);
+    const deltaY = Math.abs(touchY - touchStartY);
+
+    // 수평 스와이프가 수직 스와이프보다 큰 경우에만 기본 스크롤 방지
+    if (deltaX > deltaY && deltaX > 10) {
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!isSwiping) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchStartX - touchEndX;
+    const deltaY = Math.abs(touchStartY - touchEndY);
+
+    const minSwipeDistance = 50; // 최소 스와이프 거리
+
+    // 수평 스와이프가 수직 스와이프보다 크고, 최소 거리를 만족하는 경우
+    if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        // 왼쪽으로 스와이프 (다음 슬라이드)
+        changeSlide('next');
+      } else {
+        // 오른쪽으로 스와이프 (이전 슬라이드)
+        changeSlide('prev');
+      }
+    }
+
+    setIsSwiping(false);
+  };
+
+  // 마우스 이벤트 핸들러
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setMouseStartX(e.clientX);
+    setMouseStartY(e.clientY);
+    setIsMouseDown(true);
+    setIsDragging(true);
+    e.preventDefault(); // 드래그 기본 동작 방지
+  };
+
   return (
     <div
-      className="relative w-full overflow-hidden bg-custom-cream feature-section"
+      className="relative w-full overflow-hidden bg-custom-cream feature-section cursor-grab active:cursor-grabbing"
       style={{
         height: viewportHeight,
         minHeight: viewportHeight,
         maxHeight: viewportHeight,
-      }}>
+        userSelect: 'none', // 텍스트 선택 방지
+      }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      tabIndex={0} // 키보드 포커스 가능하도록
+    >
       {/* 배경 이미지 컨테이너 */}
       <div
         ref={backgroundRef}

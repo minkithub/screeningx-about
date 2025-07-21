@@ -98,7 +98,7 @@ export default function References() {
         </div>
 
         {/* References Grid */}
-        <div className="space-y-0">
+        <div className="space-y-2">
           {references.map((reference, index) => (
             <div key={reference.title} className="flex items-center space-x-3">
               {/* 독립된 좌측 바 */}
@@ -107,8 +107,8 @@ export default function References() {
               />
 
               <div
-                className={`flex items-center space-x-4 rounded-lg py-3 px-2 transition-all duration-200 flex-1 ${
-                  index % 2 === 0 ? 'bg-gray-100' : 'bg-custom-cream'
+                className={`flex items-center space-x-4 rounded-lg py-3 px-2 transition-all duration-200 flex-1 border border-gray-200 ${
+                  index % 2 === 0 ? 'bg-gray-200' : 'bg-custom-cream'
                 }`}>
                 <Checkbox
                   id={reference.title}
