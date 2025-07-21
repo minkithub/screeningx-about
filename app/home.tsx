@@ -17,13 +17,14 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState<Section>('header');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [lastTouchInfo, setLastTouchInfo] = useState<string>('없음'); // 터치 디버그 정보
 
   const maxSlides = 4; // s1, s2, s3, s4
 
   // 스크롤 누적값과 쿨다운 관리
   const scrollAccumulator = useRef(0);
   const lastScrollTime = useRef(0);
-  const cooldownDuration = 800; // 쿨다운 시간 (ms)
+  const cooldownDuration = 500; // 쿨다운 시간을 줄임 (800ms → 500ms)
   const scrollThreshold = 100; // 스크롤 임계값
 
   // 섹션 이동 함수
@@ -51,7 +52,7 @@ export default function Home() {
 
     setTimeout(() => {
       setIsScrolling(false);
-    }, 1000); // 쿨다운 시간을 늘림
+    }, 600); // 쿨다운 시간을 줄임 (1000ms → 600ms)
   };
 
   // 신청하기 버튼 클릭 핸들러
@@ -64,10 +65,12 @@ export default function Home() {
     if (isScrolling) return;
 
     const now = Date.now();
-    if (now - lastScrollTime.current < cooldownDuration) return;
+    if (now - lastScrollTime.current < 300) return; // 슬라이드 변경 쿨다운을 줄임 (500ms → 300ms)
 
     lastScrollTime.current = now;
     scrollAccumulator.current = 0; // 누적값 초기화
+
+    console.log(`Changing slide: ${direction}, current: ${currentSlide}`); // 디버그 로그
 
     if (direction === 'next' && currentSlide < maxSlides - 1) {
       setCurrentSlide((prev) => prev + 1);
@@ -206,15 +209,27 @@ export default function Home() {
       const touchEndY = e.changedTouches[0].clientY;
       const touchDelta = touchStartY - touchEndY;
       const touchTime = now - touchStartTime;
-      const threshold = 80; // 터치 임계값을 높임
-      const timeThreshold = 300; // 시간 임계값을 낮춤
+      const threshold = 50; // 터치 임계값을 낮춤 (80px → 50px)
+      const timeThreshold = 800; // 시간 임계값을 늘림 (300ms → 800ms)
 
-      if (Math.abs(touchDelta) < threshold || touchTime > timeThreshold) return;
+      const touchInfo = `Δ:${touchDelta.toFixed(0)}px T:${touchTime}ms`;
+      setLastTouchInfo(touchInfo);
+
+      console.log(
+        `Touch: delta=${touchDelta}, time=${touchTime}, section=${currentSection}, slide=${currentSlide}`
+      ); // 디버그 로그
+
+      if (Math.abs(touchDelta) < threshold || touchTime > timeThreshold) {
+        setLastTouchInfo(`${touchInfo} (무시됨)`);
+        return;
+      }
 
       e.preventDefault();
 
       if (touchDelta > 0) {
         // 위로 스와이프 (아래로 이동)
+        console.log('Swipe up detected'); // 디버그 로그
+        setLastTouchInfo(`${touchInfo} ↑`);
         if (currentSection === 'header') {
           scrollToSection('feature');
         } else if (currentSection === 'feature') {
@@ -227,6 +242,8 @@ export default function Home() {
         // references 섹션에서 footer로 넘어가는 터치 로직 제거
       } else {
         // 아래로 스와이프 (위로 이동)
+        console.log('Swipe down detected'); // 디버그 로그
+        setLastTouchInfo(`${touchInfo} ↓`);
         if (currentSection === 'footer') {
           scrollToSection('references');
         } else if (currentSection === 'feature') {
@@ -302,6 +319,7 @@ export default function Home() {
             ).toFixed(0)}
             ms
           </div>
+          <div>터치: {lastTouchInfo}</div>
         </div>
       )}
     </div>
