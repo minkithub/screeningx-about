@@ -41,13 +41,13 @@ export default function FloatingChatInput({
       <div className="max-w-4xl mx-auto px-4">
         <form
           onSubmit={handleChatSubmit}
-          className="flex items-center space-x-3 bg-white rounded-full p-1 border border-gray-300 shadow-sm">
+          className="flex items-center space-x-3 rounded-full p-1 border bg-white border-gray-300 shadow-sm">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="반려동물에 관한 무엇이든 질문하세요."
-            className="flex-1 px-4 py-3 bg-transparent focus:outline-none text-gray-700 placeholder-gray-400"
+            className="flex-1 px-4 py-3 bg-white focus:outline-none text-gray-700 placeholder-gray-400"
             disabled={isSendingMessage}
           />
           <button

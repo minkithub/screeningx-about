@@ -62,14 +62,14 @@ export default function Header({ onApplyClick }: HeaderProps) {
         </p>
 
         <div className="flex justify-center">
-          <div className="bg-gradient-to-r from-green-300 to-cyan-500 rounded-full p-0.5">
+          {/* <div className="bg-gradient-to-r from-green-300 to-cyan-500 rounded-full p-0.5">
             <Button
               variant="outline"
               onClick={onApplyClick}
               className="border-0 hover:bg-blue-500 hover:text-white rounded-full px-10 py-3 bg-black text-white font-medium transition-all duration-200">
               채팅하기
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
