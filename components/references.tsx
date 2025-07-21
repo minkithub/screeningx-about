@@ -107,7 +107,7 @@ export default function References() {
               />
 
               <div
-                className={`flex items-center space-x-4 rounded-lg py-3 px-4 transition-all duration-200 flex-1 ${
+                className={`flex items-center space-x-4 rounded-lg py-3 px-2 transition-all duration-200 flex-1 ${
                   index % 2 === 0 ? 'bg-gray-100' : 'bg-custom-cream'
                 }`}>
                 <Checkbox
@@ -124,7 +124,7 @@ export default function References() {
                         alt={reference.title}
                         width={16}
                         height={16}
-                        className="object-contain w-full h-full"
+                        className="object-cover w-full h-full"
                       />
                     </div>
                   )}
@@ -152,10 +152,10 @@ export default function References() {
                   )}
 
                   <div className="flex-1">
-                    <span className="text-black font-semibold text-xs">
+                    <span className="text-black font-semibold text-sm">
                       {reference.title}
                     </span>
-                    <span className="text-gray-600 text-xs ml-1">
+                    <span className="text-gray-600 text-sm ml-1">
                       {reference.description}
                     </span>
                   </div>

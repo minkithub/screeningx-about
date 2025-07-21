@@ -46,8 +46,8 @@ export default function Header({ onApplyClick }: HeaderProps) {
 
       {/* Header Section */}
       <div className="px-8 pt-12 pb-12">
-        <h1 className="text-4xl font-bold leading-tight mb-6 text-center text-black">
-          수의사가 곁에 있을 때,
+        <h1 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
+          수의사가 곁에 없을 때,
           <br />
           믿을 수 있는{' '}
           <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
