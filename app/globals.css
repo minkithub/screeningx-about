@@ -189,11 +189,24 @@
 }
 
 /* Mobile viewport and scroll fixes */
+:root {
+  --vh: 1vh;
+}
+
 @supports (height: 100dvh) {
   .mobile-viewport-fix {
     height: 100dvh !important;
     min-height: 100dvh !important;
     max-height: 100dvh !important;
+  }
+}
+
+/* Fallback for browsers without dvh support */
+@supports not (height: 100dvh) {
+  .mobile-viewport-fix {
+    height: calc(var(--vh, 1vh) * 100) !important;
+    min-height: calc(var(--vh, 1vh) * 100) !important;
+    max-height: calc(var(--vh, 1vh) * 100) !important;
   }
 }
 
@@ -228,11 +241,19 @@
   position: absolute !important;
   z-index: 10 !important;
   pointer-events: none !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 /* Mobile specific adjustments */
 @media (max-width: 768px) {
   .feature-section {
-    height: 100dvh !important; /* dvh는 모바일에서만 */
+    height: 100dvh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+  }
+  
+  /* 모바일에서 이미지 크기 조정 방지 */
+  .feature-background img {
+    object-fit: contain !important;
+    object-position: center !important;
   }
 }
