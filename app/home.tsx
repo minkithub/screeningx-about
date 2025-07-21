@@ -50,6 +50,11 @@ export default function Home() {
     }, 1000); // 쿨다운 시간을 늘림
   };
 
+  // 신청하기 버튼 클릭 핸들러
+  const handleApplyClick = () => {
+    scrollToSection('footer');
+  };
+
   // 슬라이드 변경 함수
   const changeSlide = (direction: 'next' | 'prev') => {
     if (isScrolling) return;
@@ -61,10 +66,8 @@ export default function Home() {
     scrollAccumulator.current = 0; // 누적값 초기화
 
     if (direction === 'next' && currentSlide < maxSlides - 1) {
-      console.log('Next slide:', currentSlide + 1);
       setCurrentSlide((prev) => prev + 1);
     } else if (direction === 'prev' && currentSlide > 0) {
-      console.log('Previous slide:', currentSlide - 1);
       setCurrentSlide((prev) => prev - 1);
     }
   };
@@ -115,13 +118,6 @@ export default function Home() {
       if (scrollAccumulator.current < scrollThreshold) {
         return;
       }
-
-      console.log('Wheel event:', {
-        currentSection,
-        currentSlide,
-        deltaY: e.deltaY,
-        accumulated: scrollAccumulator.current,
-      });
 
       // 스크롤 방향에 따른 처리
       if (e.deltaY > 0) {
@@ -187,13 +183,6 @@ export default function Home() {
 
       e.preventDefault();
 
-      console.log('Touch event:', {
-        currentSection,
-        currentSlide,
-        touchDelta,
-        touchTime,
-      });
-
       if (touchDelta > 0) {
         // 위로 스와이프 (아래로 이동)
         if (currentSection === 'header') {
@@ -247,7 +236,7 @@ export default function Home() {
     <div>
       {/* Header Section */}
       <div ref={headerRef}>
-        <Header />
+        <Header onApplyClick={handleApplyClick} />
       </div>
 
       {/* Feature Section */}

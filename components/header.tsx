@@ -3,7 +3,11 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
-export default function Header() {
+interface HeaderProps {
+  onApplyClick?: () => void;
+}
+
+export default function Header({ onApplyClick }: HeaderProps) {
   const logoImages = [
     { name: 'KPF', src: '/logo/kpf.png' },
     { name: 'STP', src: '/logo/stp.png' },
@@ -61,8 +65,8 @@ export default function Header() {
           <div className="bg-gradient-to-r from-green-300 to-cyan-500 rounded-full p-0.5">
             <Button
               variant="outline"
-              onClick={() => {}}
-              className="border-0 hover:bg-green-400 hover:text-white rounded-full px-10 py-3 bg-black text-white font-medium">
+              onClick={onApplyClick}
+              className="border-0 hover:bg-blue-500 hover:text-white rounded-full px-10 py-3 bg-black text-white font-medium transition-all duration-200">
               신청하기
             </Button>
           </div>
