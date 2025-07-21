@@ -29,6 +29,9 @@ export default function Home() {
 
   // 섹션 이동 함수
   const scrollToSection = (section: Section) => {
+    console.log(
+      `scrollToSection called: ${section}, isScrolling: ${isScrolling}`
+    ); // 디버그 로그
     if (isScrolling) return;
 
     setIsScrolling(true);
@@ -42,6 +45,10 @@ export default function Home() {
         ? referencesRef
         : footerRef;
 
+    console.log(
+      `Scrolling to ${section}, target exists: ${!!targetRef.current}`
+    ); // 디버그 로그
+
     if (section === 'header') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -52,6 +59,7 @@ export default function Home() {
 
     setTimeout(() => {
       setIsScrolling(false);
+      console.log(`Scroll to ${section} completed`); // 디버그 로그
     }, 600); // 쿨다운 시간을 줄임 (1000ms → 600ms)
   };
 
@@ -79,7 +87,7 @@ export default function Home() {
     }
   };
 
-  // 현재 섹션 감지
+  // 현재 섹션 감지 및 스크롤 제어
   useEffect(() => {
     const handleScroll = () => {
       if (isScrolling) return;
@@ -108,6 +116,25 @@ export default function Home() {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isScrolling]);
+
+  // Feature 섹션에서 자연스러운 스크롤만 차단 (섹션 이동은 허용)
+  useEffect(() => {
+    if (currentSection === 'feature') {
+      // 자연스러운 스크롤만 차단, 섹션 이동은 허용
+      document.body.style.overflowY = 'hidden';
+      document.body.style.touchAction = 'pan-y';
+    } else {
+      // 스크롤 복원
+      document.body.style.overflowY = '';
+      document.body.style.touchAction = '';
+    }
+
+    // cleanup 함수
+    return () => {
+      document.body.style.overflowY = '';
+      document.body.style.touchAction = '';
+    };
+  }, [currentSection]);
 
   // 스크롤/스와이프 이벤트 처리
   useEffect(() => {
@@ -188,6 +215,19 @@ export default function Home() {
       touchStartTime = Date.now();
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      // Feature 섹션에서만 작은 움직임 차단
+      if (currentSection === 'feature') {
+        const currentY = e.touches[0].clientY;
+        const deltaY = Math.abs(touchStartY - currentY);
+
+        // 아주 작은 스크롤 움직임만 차단 (15px 미만)
+        if (deltaY < 15) {
+          e.preventDefault();
+        }
+      }
+    };
+
     const handleTouchEnd = (e: TouchEvent) => {
       if (isScrolling) return;
 
@@ -213,8 +253,8 @@ export default function Home() {
       const touchDeltaY = touchStartY - touchEndY;
       const touchDeltaX = touchStartX - touchEndX;
       const touchTime = now - touchStartTime;
-      const threshold = 30; // 터치 임계값을 더 낮춤 (50px → 30px)
-      const timeThreshold = 500; // 시간 임계값을 줄임 (800ms → 500ms)
+      const threshold = 40; // 터치 임계값을 조정 (30px → 40px)
+      const timeThreshold = 600; // 시간 임계값을 조정 (500ms → 600ms)
 
       // 수직 스와이프만 감지 (수평 스와이프는 무시)
       if (Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {
@@ -226,7 +266,7 @@ export default function Home() {
       setLastTouchInfo(touchInfo);
 
       console.log(
-        `Touch: deltaY=${touchDeltaY}, deltaX=${touchDeltaX}, time=${touchTime}, section=${currentSection}, slide=${currentSlide}`
+        `Touch: deltaY=${touchDeltaY}, deltaX=${touchDeltaX}, time=${touchTime}, section=${currentSection}, slide=${currentSlide}, threshold=${threshold}, timeThreshold=${timeThreshold}`
       ); // 디버그 로그
 
       if (Math.abs(touchDeltaY) < threshold || touchTime > timeThreshold) {
@@ -238,28 +278,38 @@ export default function Home() {
 
       if (touchDeltaY > 0) {
         // 위로 스와이프 (아래로 이동)
-        console.log('Swipe up detected'); // 디버그 로그
+        console.log(`Swipe up detected - from ${currentSection}`); // 디버그 로그
         setLastTouchInfo(`${touchInfo} ↑`);
         if (currentSection === 'header') {
+          console.log('Moving from header to feature'); // 디버그 로그
           scrollToSection('feature');
         } else if (currentSection === 'feature') {
           if (currentSlide < maxSlides - 1) {
+            console.log(
+              `Changing slide from ${currentSlide} to ${currentSlide + 1}`
+            ); // 디버그 로그
             changeSlide('next');
           } else {
+            console.log('Moving from feature to references'); // 디버그 로그
             scrollToSection('references');
           }
         }
         // references 섹션에서 footer로 넘어가는 터치 로직 제거
       } else {
         // 아래로 스와이프 (위로 이동)
-        console.log('Swipe down detected'); // 디버그 로그
+        console.log(`Swipe down detected - from ${currentSection}`); // 디버그 로그
         setLastTouchInfo(`${touchInfo} ↓`);
         if (currentSection === 'footer') {
+          console.log('Moving from footer to references'); // 디버그 로그
           scrollToSection('references');
         } else if (currentSection === 'feature') {
           if (currentSlide > 0) {
+            console.log(
+              `Changing slide from ${currentSlide} to ${currentSlide - 1}`
+            ); // 디버그 로그
             changeSlide('prev');
           } else {
+            console.log('Moving from feature to header'); // 디버그 로그
             scrollToSection('header');
           }
         }
@@ -280,11 +330,13 @@ export default function Home() {
     // 이벤트 리스너 등록
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: false });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
       clearInterval(accumulatorTimer);
     };
