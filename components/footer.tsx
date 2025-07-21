@@ -72,7 +72,7 @@ export default function Footer() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="patss@gmail.com"
+                  placeholder="petss@gmail.com"
                   className="w-full max-w-xs mx-auto px-8 py-4 text-center text-gray-600 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
