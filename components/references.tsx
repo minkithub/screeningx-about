@@ -124,7 +124,7 @@ export default function References() {
                         alt={reference.title}
                         width={16}
                         height={16}
-                        className="object-cover w-full h-full"
+                        className="object-contain w-full h-full"
                       />
                     </div>
                   )}

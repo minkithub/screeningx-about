@@ -180,9 +180,11 @@ export default function Home() {
     // 터치 이벤트 처리
     let touchStartY = 0;
     let touchStartTime = 0;
+    let touchStartX = 0;
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
       touchStartTime = Date.now();
     };
 
@@ -207,26 +209,34 @@ export default function Home() {
       }
 
       const touchEndY = e.changedTouches[0].clientY;
-      const touchDelta = touchStartY - touchEndY;
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchDeltaY = touchStartY - touchEndY;
+      const touchDeltaX = touchStartX - touchEndX;
       const touchTime = now - touchStartTime;
-      const threshold = 50; // 터치 임계값을 낮춤 (80px → 50px)
-      const timeThreshold = 800; // 시간 임계값을 늘림 (300ms → 800ms)
+      const threshold = 30; // 터치 임계값을 더 낮춤 (50px → 30px)
+      const timeThreshold = 500; // 시간 임계값을 줄임 (800ms → 500ms)
 
-      const touchInfo = `Δ:${touchDelta.toFixed(0)}px T:${touchTime}ms`;
+      // 수직 스와이프만 감지 (수평 스와이프는 무시)
+      if (Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {
+        setLastTouchInfo(`수평 스와이프 무시`);
+        return;
+      }
+
+      const touchInfo = `Δ:${touchDeltaY.toFixed(0)}px T:${touchTime}ms`;
       setLastTouchInfo(touchInfo);
 
       console.log(
-        `Touch: delta=${touchDelta}, time=${touchTime}, section=${currentSection}, slide=${currentSlide}`
+        `Touch: deltaY=${touchDeltaY}, deltaX=${touchDeltaX}, time=${touchTime}, section=${currentSection}, slide=${currentSlide}`
       ); // 디버그 로그
 
-      if (Math.abs(touchDelta) < threshold || touchTime > timeThreshold) {
+      if (Math.abs(touchDeltaY) < threshold || touchTime > timeThreshold) {
         setLastTouchInfo(`${touchInfo} (무시됨)`);
         return;
       }
 
       e.preventDefault();
 
-      if (touchDelta > 0) {
+      if (touchDeltaY > 0) {
         // 위로 스와이프 (아래로 이동)
         console.log('Swipe up detected'); // 디버그 로그
         setLastTouchInfo(`${touchInfo} ↑`);

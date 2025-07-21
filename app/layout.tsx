@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: '펫쏙쏙',
     images: [
       {
-        url: '/s1.png',
+        url: '/og_image.png',
         width: 1200,
         height: 630,
         alt: '펫쏙쏙 - AI 반려동물 상담 서비스',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: '펫쏙쏙 - AI 반려동물 상담 서비스',
     description:
       '수의학 기반 신뢰도 높은 정보로 AI가 반려동물 건강 상담을 제공합니다. 24시간 언제든지 반려동물 케어 정보를 받아보세요.',
-    images: ['/s1.png'],
+    images: ['/og_image.png'],
   },
   robots: {
     index: true,
