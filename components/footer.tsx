@@ -108,7 +108,7 @@ export default function Footer() {
             <div className="text-left">
               <h4 className="text-lg font-semibold mb-4">문의 및 뉴스레터</h4>
               <div className="flex flex-col justify-left space-y-2 text-gray-300 text-sm">
-                <p>문의: support@sliver.co.kr</p>
+                <p>문의: msjantler@gmail.com</p>
                 <p className="text-gray-400">
                   출시 알림 및 업데이트 소식을 이메일로 받아보세요
                 </p>
