@@ -61,19 +61,60 @@ export default function FloatingChatInput({
     
     try {
       const compressedImages: CompressedImage[] = [];
+      const targetSizeKB = 150; // 목표 크기 150KB
       
       for (const file of files) {
         try {
-          // 압축 옵션 설정
-          const options = {
-            maxSizeMB: 1, // 최대 1MB
-            maxWidthOrHeight: 1920, // 최대 1920px
-            useWebWorker: true, // 웹 워커 사용으로 성능 향상
-            quality: 0.8, // 80% 품질
-          };
+          let compressedFile = file;
+          let quality = 0.9; // 시작 품질
+          let maxWidthOrHeight = 1920; // 시작 해상도
+          
+          // 150KB 이하가 될 때까지 반복 압축
+          while (compressedFile.size > targetSizeKB * 1024 && quality > 0.1) {
+            const options = {
+              maxSizeMB: targetSizeKB / 1024, // 150KB를 MB로 변환
+              maxWidthOrHeight: maxWidthOrHeight,
+              useWebWorker: true,
+              quality: quality,
+              fileType: 'image/jpeg' as const,
+            };
 
-          // 이미지 압축
-          const compressedFile = await imageCompression(file, options);
+            try {
+              compressedFile = await imageCompression(file, options);
+              
+              // 목표 크기에 도달했으면 중단
+              if (compressedFile.size <= targetSizeKB * 1024) {
+                break;
+              }
+              
+              // 아직 크면 품질을 낮추고 해상도도 줄임
+              quality -= 0.1;
+              if (quality <= 0.5 && maxWidthOrHeight > 800) {
+                maxWidthOrHeight = Math.max(800, maxWidthOrHeight * 0.8);
+              }
+              
+            } catch (compressionError) {
+              console.warn(`Compression attempt failed for ${file.name}:`, compressionError);
+              break;
+            }
+          }
+          
+          // 여전히 크면 최종 강력 압축 시도
+          if (compressedFile.size > targetSizeKB * 1024) {
+            const finalOptions = {
+              maxSizeMB: targetSizeKB / 1024,
+              maxWidthOrHeight: 600,
+              useWebWorker: true,
+              quality: 0.3,
+              fileType: 'image/jpeg' as const,
+            };
+            
+            try {
+              compressedFile = await imageCompression(file, finalOptions);
+            } catch (finalError) {
+              console.warn(`Final compression failed for ${file.name}:`, finalError);
+            }
+          }
           
           // Base64로 변환
           const base64Data = await new Promise<string>((resolve, reject) => {
@@ -93,9 +134,17 @@ export default function FloatingChatInput({
             data: base64Data,
             size: compressedFile.size,
           });
+          
+          console.log(`Image ${file.name}: ${(file.size / 1024).toFixed(1)}KB → ${(compressedFile.size / 1024).toFixed(1)}KB`);
+          
         } catch (error) {
           console.error(`Error compressing image ${file.name}:`, error);
-          // 개별 이미지 압축 실패 시 원본 파일로 처리
+          // 개별 이미지 압축 실패 시 원본 파일로 처리 (하지만 150KB 초과 경고)
+          if (file.size > targetSizeKB * 1024) {
+            alert(`${file.name}이 ${targetSizeKB}KB를 초과합니다. 더 작은 이미지를 선택해주세요.`);
+            continue; // 이 이미지는 건너뛰기
+          }
+          
           const base64Data = await new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => {
@@ -172,7 +221,7 @@ export default function FloatingChatInput({
                 첨부된 이미지 ({selectedImages.length}/5)
               </span>
               <span className="text-xs text-gray-500">
-                전송 시 자동으로 압축됩니다 (최대 1MB)
+                전송 시 자동으로 압축됩니다 (최대 150KB)
               </span>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -279,7 +328,13 @@ export default function FloatingChatInput({
         {/* 로딩 상태 표시 */}
         {isCompressingImages && (
           <div className="text-center mt-2">
-            <span className="text-sm text-gray-600">이미지를 압축하고 있습니다...</span>
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-sm text-gray-600">이미지를 150KB 이하로 압축하고 있습니다...</span>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">
+              큰 이미지는 압축에 시간이 걸릴 수 있습니다
+            </p>
           </div>
         )}
       </div>

@@ -58,11 +58,14 @@ export async function sendChatMessage(chatMessage: string, images?: CompressedIm
   ];
 
   if (hasImages) {
+    const totalSizeKB = Math.round(images!.reduce((sum, img) => sum + img.size, 0) / 1024);
+    const imageDetails = images!.map(img => `${img.name} (${Math.round(img.size / 1024)}KB)`).join(', ');
+    
     blocks.push({
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `*첨부 이미지:* ${images!.length}개 (총 ${Math.round(images!.reduce((sum, img) => sum + img.size, 0) / 1024)}KB)`,
+        text: `*첨부 이미지:* ${images!.length}개 (총 ${totalSizeKB}KB)\n${imageDetails}`,
       },
     });
   }
