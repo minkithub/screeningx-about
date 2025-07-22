@@ -30,10 +30,13 @@ export async function sendSlackNotification(message: string) {
   }
 }
 
-export async function sendChatMessage(chatMessage: string, images?: CompressedImage[]) {
+export async function sendChatMessage(
+  chatMessage: string,
+  images?: CompressedImage[]
+) {
   const hasImages = images && images.length > 0;
   const imageText = hasImages ? `\n*첨부 이미지:* ${images.length}개` : '';
-  
+
   const message = `💬 펫쏙쏙 채팅 메시지
 
 *메시지:* ${chatMessage}${imageText}
@@ -58,14 +61,20 @@ export async function sendChatMessage(chatMessage: string, images?: CompressedIm
   ];
 
   if (hasImages) {
-    const totalSizeKB = Math.round(images!.reduce((sum, img) => sum + img.size, 0) / 1024);
-    const imageDetails = images!.map(img => `${img.name} (${Math.round(img.size / 1024)}KB)`).join(', ');
-    
+    const totalSizeKB = Math.round(
+      images!.reduce((sum, img) => sum + img.size, 0) / 1024
+    );
+    const imageDetails = images!
+      .map((img) => `${img.name} (${Math.round(img.size / 1024)}KB)`)
+      .join(', ');
+
     blocks.push({
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `*첨부 이미지:* ${images!.length}개 (총 ${totalSizeKB}KB)\n${imageDetails}`,
+        text: `*첨부 이미지:* ${
+          images!.length
+        }개 (총 ${totalSizeKB}KB)\n${imageDetails}`,
       },
     });
   }
@@ -93,14 +102,16 @@ export async function sendChatMessage(chatMessage: string, images?: CompressedIm
       for (const image of images!) {
         try {
           const buffer = Buffer.from(image.data, 'base64');
-          
-          await web.files.uploadV2({
+
+          await web.filesUploadV2({
             channel_id: channelId!,
             thread_ts: response.ts,
             file: buffer,
             filename: image.name,
             title: `첨부 이미지: ${image.name}`,
-            initial_comment: `📷 ${image.name} (${Math.round(image.size / 1024)}KB)`,
+            initial_comment: `📷 ${image.name} (${Math.round(
+              image.size / 1024
+            )}KB)`,
           });
         } catch (uploadError) {
           console.error(`Error uploading image ${image.name}:`, uploadError);
