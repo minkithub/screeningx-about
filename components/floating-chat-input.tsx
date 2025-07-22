@@ -222,7 +222,7 @@ export default function FloatingChatInput({
 
   return (
     <div className="floating-chat-input">
-      <div className="max-w-4xl">
+      <div className="max-w-4xl mx-auto">
         {/* 이미지 미리보기 */}
         {selectedImages.length > 0 && (
           <div className="mb-3 p-3 bg-white rounded-lg border border-gray-200 shadow-sm">
