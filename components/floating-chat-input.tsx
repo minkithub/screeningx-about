@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { sendChatMessage } from '@/actions/waitlist';
+import imageCompression from 'browser-image-compression';
 
 interface FloatingChatInputProps {
   onMessageSent: (message: string) => void;
@@ -59,26 +60,65 @@ export default function FloatingChatInput({
     setIsCompressingImages(true);
     
     try {
-      const formData = new FormData();
-      files.forEach(file => {
-        formData.append('images', file);
-      });
+      const compressedImages: CompressedImage[] = [];
+      
+      for (const file of files) {
+        try {
+          // 압축 옵션 설정
+          const options = {
+            maxSizeMB: 1, // 최대 1MB
+            maxWidthOrHeight: 1920, // 최대 1920px
+            useWebWorker: true, // 웹 워커 사용으로 성능 향상
+            quality: 0.8, // 80% 품질
+          };
 
-      const response = await fetch('/api/upload-images', {
-        method: 'POST',
-        body: formData,
-      });
+          // 이미지 압축
+          const compressedFile = await imageCompression(file, options);
+          
+          // Base64로 변환
+          const base64Data = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const result = reader.result as string;
+              // data:image/jpeg;base64, 부분 제거
+              const base64 = result.split(',')[1];
+              resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(compressedFile);
+          });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '이미지 압축 중 오류가 발생했습니다.');
+          compressedImages.push({
+            name: file.name,
+            data: base64Data,
+            size: compressedFile.size,
+          });
+        } catch (error) {
+          console.error(`Error compressing image ${file.name}:`, error);
+          // 개별 이미지 압축 실패 시 원본 파일로 처리
+          const base64Data = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const result = reader.result as string;
+              const base64 = result.split(',')[1];
+              resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+
+          compressedImages.push({
+            name: file.name,
+            data: base64Data,
+            size: file.size,
+          });
+        }
       }
 
-      const result = await response.json();
-      return result.images;
+      return compressedImages;
     } catch (error) {
       console.error('Image compression error:', error);
-      throw error;
+      throw new Error('이미지 압축 중 오류가 발생했습니다.');
     } finally {
       setIsCompressingImages(false);
     }
@@ -153,6 +193,9 @@ export default function FloatingChatInput({
                   </button>
                   <div className="text-xs text-gray-500 mt-1 truncate w-16" title={file.name}>
                     {file.name}
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    {(file.size / 1024).toFixed(0)}KB
                   </div>
                 </div>
               ))}
