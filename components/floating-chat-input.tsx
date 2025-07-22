@@ -259,7 +259,7 @@ export default function FloatingChatInput({
 
         <form
           onSubmit={handleChatSubmit}
-          className="flex items-end space-x-3 rounded-lg p-3 border bg-white border-gray-300 shadow-sm">
+          className="flex items-end space-x-3 rounded-lg py-3 border bg-white border-gray-300 shadow-sm">
           <div className="flex-1">
             <input
               type="text"
