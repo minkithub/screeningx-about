@@ -24,7 +24,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [sentChatMessage, setSentChatMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
 
   // 신청하기 버튼 클릭 핸들러
   const handleApplyClick = () => {
@@ -37,28 +37,28 @@ export default function Home() {
     setShowModal(true); // 메시지 전송 후 바로 모달 열기
   };
 
-  // 전화번호 제출 핸들러
-  const handlePhoneSubmit = async (e: React.FormEvent) => {
+  // 이메일 제출 핸들러
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim()) return;
+    if (!email.trim()) return;
 
-    // 전화번호 형식 검증 (한국 전화번호)
-    const phoneRegex = /^(01[016789]|02|0[3-9][0-9])-?[0-9]{3,4}-?[0-9]{4}$/;
-    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
-      alert('올바른 전화번호 형식을 입력해주세요. (예: 010-1234-5678)');
+    // 이메일 형식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('올바른 이메일 형식을 입력해주세요. (예: example@email.com)');
       return;
     }
 
     setIsLoading(true);
     try {
-      // 채팅 메시지를 포함해서 전화번호 신청 전송
+      // 채팅 메시지를 포함해서 이메일 신청 전송
       await sendApplicationNotification({
-        contact: phone,
+        contact: email,
         chatMessage: sentChatMessage || undefined,
       });
 
       setIsSubmitted(true);
-      setPhone('');
+      setEmail('');
       setSentChatMessage(''); // 성공 후 초기화
       setShowModal(false); // 모달 닫기
     } catch (error) {
@@ -190,25 +190,17 @@ export default function Home() {
 
               <div className="text-center mb-6">
                 <p className="text-gray-700 text-lg mb-4 font-bold">
-                  반려인들의 걱정을 덜어드리고자,
-                  <br />
-                  수의사와 함께 서비스를 만들고 있어요
-                </p>
-
-                <p className="text-gray-600 text-base mb-6">
-                  사전 신청해주신 분들에게 안내드릴게요
-                  <br />
-                  펫쏙쏙을 응원해주세요 !
+                  해당 메일로 답변드리겠습니다
                 </p>
               </div>
 
-              <form onSubmit={handlePhoneSubmit} className="space-y-4">
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
                 <div>
                   <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="010-1234-5678"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@email.com"
                     className="w-full px-4 py-3 text-center text-gray-600 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
@@ -224,7 +216,7 @@ export default function Home() {
                   </Button>
                   <Button
                     type="submit"
-                    disabled={isLoading || !phone.trim()}
+                    disabled={isLoading || !email.trim()}
                     className="flex-1 py-3">
                     {isLoading ? '등록 중...' : '신청하기'}
                   </Button>
