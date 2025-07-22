@@ -271,4 +271,12 @@
   .floating-chat-input {
     padding: 0.75rem;
   }
+
+  /* Image preview grid styling */
+  .image-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 0.5rem;
+    max-width: 100%;
+  }
 }
