@@ -11,7 +11,9 @@ export default function ChatSection({
   isSubmitted,
   sentChatMessage,
 }: ChatSectionProps) {
-  const hasImageAttachment = sentChatMessage.includes('이미지를 첨부했습니다') || sentChatMessage.includes('이미지 첨부');
+  const hasImageAttachment =
+    sentChatMessage.includes('이미지를 첨부했습니다') ||
+    sentChatMessage.includes('이미지 첨부');
 
   return (
     <>
@@ -24,7 +26,9 @@ export default function ChatSection({
               지금 대화해보세요
             </h2>
             <p className="text-gray-600 text-lg">
-              펫쏙쏙에 대해 궁금한 점이 있으시면 언제든 말씀해주세요!
+              펫쏙쏙에 대해 궁금한 점이 있으시면
+              <br />
+              언제든 말씀해주세요!
             </p>
           </div>
 
@@ -66,17 +70,14 @@ export default function ChatSection({
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="flex-shrink-0"
-                      >
+                        className="flex-shrink-0">
                         <path
                           d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"
                           fill="currentColor"
                         />
                       </svg>
                     )}
-                    <p className="text-white">
-                      {sentChatMessage}
-                    </p>
+                    <p className="text-white">{sentChatMessage}</p>
                   </div>
                 </div>
                 <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-sm">
@@ -121,7 +122,8 @@ export default function ChatSection({
                 </div>
                 <div className="bg-white rounded-lg rounded-tl-none p-4 shadow-sm max-w-md">
                   <p className="text-gray-800">
-                    소중한 {hasImageAttachment ? '질문과 이미지' : '질문'} 감사합니다!
+                    소중한 {hasImageAttachment ? '질문과 이미지' : '질문'}{' '}
+                    감사합니다!
                     <br />
                     출시 후 더 자세한 답변을 제공해드릴게요. 🙏
                     {hasImageAttachment && (
