@@ -56,9 +56,9 @@ export default function Header({ onApplyClick }: HeaderProps) {
           </span>
           을
           <br />
-          내 손 안으로 쏙!
+          내 손 안으로 쏙! 24시간
           <br />
-          24시간 펫쏙쏙에 물어보세요.
+          펫쏙쏙에 물어보세요.
           <br />
         </h1>
 

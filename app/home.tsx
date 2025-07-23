@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import PetsOutletList from '@/components/pets-outlet-list';
 import CatSelection from '@/components/cats-outlet-list';
 import EtcSelection from '@/components/etc-outlet-list';
+import InfoSection from '@/components/info-section';
 
 type Section = 'header' | 'feature' | 'references' | 'chat' | 'footer';
 
@@ -140,6 +141,12 @@ export default function Home() {
 
         <div ref={etcOutletListRef}>
           <EtcSelection />
+        </div>
+
+        {/* info section */}
+
+        <div>
+          <InfoSection />
         </div>
 
         {/* Chat Section */}
