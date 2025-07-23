@@ -272,37 +272,13 @@ export default function FloatingChatInput({
           </div>
 
           <div className="flex items-center space-x-2">
-            {/* 이미지 첨부 버튼 */}
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isLoading || selectedImages.length >= 5}
-              className="p-2 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              title={
-                selectedImages.length >= 5
-                  ? '최대 5개의 이미지만 업로드 가능합니다'
-                  : '이미지 첨부'
-              }>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-
             {/* 전송 버튼 */}
             <button
               type="submit"
               disabled={
                 (!message.trim() && selectedImages.length === 0) || isLoading
               }
-              className="text-white p-3 rounded-full bg-black hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
+              className="text-white p-3 rounded-full bg-[#000] hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (

@@ -9,6 +9,9 @@ import { useEffect, useRef, useState } from 'react';
 import References from '@/components/references';
 import { sendApplicationNotification } from '@/actions/waitlist';
 import { Button } from '@/components/ui/button';
+import PetsOutletList from '@/components/pets-outlet-list';
+import CatSelection from '@/components/cats-outlet-list';
+import EtcSelection from '@/components/etc-outlet-list';
 
 type Section = 'header' | 'feature' | 'references' | 'chat' | 'footer';
 
@@ -18,6 +21,9 @@ export default function Home() {
   const referencesRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+  const petOutletListRef = useRef<HTMLDivElement>(null);
+  const catOutletListRef = useRef<HTMLDivElement>(null);
+  const etcOutletListRef = useRef<HTMLDivElement>(null);
 
   const [currentSection, setCurrentSection] = useState<Section>('header');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -123,6 +129,17 @@ export default function Home() {
         {/* References Section */}
         <div ref={referencesRef}>
           <References />
+        </div>
+        <div ref={petOutletListRef}>
+          <PetsOutletList />
+        </div>
+
+        <div ref={catOutletListRef}>
+          <CatSelection />
+        </div>
+
+        <div ref={etcOutletListRef}>
+          <EtcSelection />
         </div>
 
         {/* Chat Section */}

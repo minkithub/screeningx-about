@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 export default function FeatureSection() {
-  const slideImages = ['/s1.png', '/s2.png', '/s3.png', '/s4.png'];
+  const slideImages = ['/pets/gif1.gif', '/pets/gif2.gif'];
+
+  const textImages = ['/r1.png', '/r2.png'];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideStyles, setSlideStyles] = useState({
-    width: '240px',
+    width: '180px',
     height: '426px',
     left: '50%',
     top: '50%',
@@ -325,7 +327,7 @@ export default function FeatureSection() {
 
           {/* 슬라이드 이미지 컨테이너 */}
           <div
-            className="absolute feature-slide-container"
+            className="absolute feature-slide-container mt-3"
             style={{
               width: slideStyles.width,
               height: slideStyles.height,
@@ -357,19 +359,28 @@ export default function FeatureSection() {
                   key={index}
                   className="absolute transition-all duration-500 ease-out"
                   style={{
-                    width: '100%',
+                    width: '90%',
                     height: '100%',
                     left: `${leftPosition}%`,
                     top: '0',
                     opacity: opacity,
                     transform: 'scale(1)',
+                    marginLeft: '10%',
                   }}>
+                  <Image
+                    src={textImages[index]}
+                    alt={`슬라이드 ${index + 1}`}
+                    width={parseInt(slideStyles.width)}
+                    height={parseInt(slideStyles.height)}
+                    className="object-contain mt-2"
+                    priority={index === currentSlide}
+                  />
                   <Image
                     src={imageSrc}
                     alt={`슬라이드 ${index + 1}`}
                     width={parseInt(slideStyles.width)}
                     height={parseInt(slideStyles.height)}
-                    className="object-contain"
+                    className="object-contain rounded-sm mt-2"
                     priority={index === currentSlide}
                   />
                 </div>

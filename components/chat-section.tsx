@@ -51,9 +51,6 @@ export default function ChatSection({
                   <br />
                   반려동물에 관해 어떤게 궁금하세요?
                   <br />
-                  <span className="text-sm text-gray-600 mt-2 block">
-                    💡 이미지도 함께 첨부할 수 있어요!
-                  </span>
                 </p>
               </div>
             </div>

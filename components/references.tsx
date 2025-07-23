@@ -91,8 +91,7 @@ export default function References() {
         {/* Header */}
         <div className="text-left mb-8">
           <h2 className="text-2xl font-bold mb-4">
-            <span className="text-blue-400">수의학 기반 </span>
-            신뢰도 있는 출처를 <br />
+            신뢰할 수 있는 출처를 <br />
             수집·분석하고 있어요.
           </h2>
         </div>

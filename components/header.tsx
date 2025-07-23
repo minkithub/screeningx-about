@@ -45,32 +45,29 @@ export default function Header({ onApplyClick }: HeaderProps) {
       </div>
 
       {/* Header Section */}
-      <div className="px-8 pt-12 pb-12">
+      <div className="px-8 pt-12 pb-0 bg-[#F7F4EF]">
         <h1 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
-          수의사가 곁에 없을 때,
-          <br />
-          믿을 수 있는{' '}
-          <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            상담 친구
+          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
+            동물병원
           </span>
+          과{' '}
+          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
+            행동 클리닉
+          </span>
+          을
+          <br />
+          내 손 안으로 쏙!
+          <br />
+          24시간 펫쏙쏙에 물어보세요.
+          <br />
         </h1>
 
-        <p className="text-gray-700 text-base mb-10 leading-relaxed text-center">
-          반려동물의 건강, 행동, 식습관까지.
+        <p className="text-gray-700 text-base  leading-relaxed text-center">
+          유명 수의학 논문과 행동 전문가 지식만을 학습해
           <br />
-          우리 아이에게 꼭 맞는 정보를 알려드려요.
+          <span className="font-bold">ChatGPT보다 신뢰할 수 있는 정보</span>만
+          알려드려요.
         </p>
-
-        <div className="flex justify-center">
-          {/* <div className="bg-gradient-to-r from-green-300 to-cyan-500 rounded-full p-0.5">
-            <Button
-              variant="outline"
-              onClick={onApplyClick}
-              className="border-0 hover:bg-blue-500 hover:text-white rounded-full px-10 py-3 bg-black text-white font-medium transition-all duration-200">
-              채팅하기
-            </Button>
-          </div> */}
-        </div>
       </div>
     </div>
   );
