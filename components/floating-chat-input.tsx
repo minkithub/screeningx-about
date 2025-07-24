@@ -2,16 +2,10 @@
 
 import { useState } from 'react';
 
-interface FloatingChatInputProps {
-  onMessageSent: (message: string) => void;
-}
-
 // TODO: serviceURL을 환경변수나 설정에서 가져오도록 수정 필요
 const serviceURL = process.env.NEXT_PUBLIC_SERVICE_URL;
 
-export default function FloatingChatInput({
-  onMessageSent,
-}: FloatingChatInputProps) {
+export default function FloatingChatInput() {
   const [message, setMessage] = useState('');
 
   const handleChatSubmit = async (e: React.FormEvent) => {
@@ -21,9 +15,6 @@ export default function FloatingChatInput({
     // URL에 메시지를 쿼리 파라미터로 담아서 리다이렉트
     const targetURL = `${serviceURL}?q=${encodeURIComponent(message)}`;
     window.location.href = targetURL;
-
-    // 부모 컴포넌트에 메시지 전송 알림
-    onMessageSent(message);
 
     // 입력창 초기화
     setMessage('');

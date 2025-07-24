@@ -3,11 +3,9 @@
 import Header from '@/components/header';
 import FeatureSection from '@/components/feature-section';
 import Footer from '@/components/footer';
-import ChatSection from '@/components/chat-section';
 import FloatingChatInput from '@/components/floating-chat-input';
 import { useEffect, useRef, useState } from 'react';
 import References from '@/components/references';
-import { sendApplicationNotification } from '@/actions/waitlist';
 import PetsOutletList from '@/components/pets-outlet-list';
 import CatSelection from '@/components/cats-outlet-list';
 import EtcSelection from '@/components/etc-outlet-list';
@@ -27,18 +25,10 @@ export default function Home() {
   const etcOutletListRef = useRef<HTMLDivElement>(null);
 
   const [currentSection, setCurrentSection] = useState<Section>('header');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [sentChatMessage, setSentChatMessage] = useState('');
-  const [email, setEmail] = useState('');
 
   // 신청하기 버튼 클릭 핸들러
   const handleApplyClick = () => {
     chatRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  // 채팅 메시지 전송 핸들러
-  const handleMessageSent = (message: string) => {
-    setSentChatMessage(message);
   };
 
   // 현재 섹션 감지
@@ -110,14 +100,6 @@ export default function Home() {
           <InfoSection />
         </div>
 
-        {/* Chat Section */}
-        <div ref={chatRef}>
-          <ChatSection
-            isSubmitted={isSubmitted}
-            sentChatMessage={sentChatMessage}
-          />
-        </div>
-
         {/* Live Questions Section */}
         <div>
           <LiveQuestionsSection />
@@ -137,7 +119,7 @@ export default function Home() {
       </div>
 
       {/* Floating Chat Input */}
-      <FloatingChatInput onMessageSent={handleMessageSent} />
+      <FloatingChatInput />
     </>
   );
 }
