@@ -63,7 +63,7 @@ export default function CatSelection() {
                 variant="secondary"
                 className="cursor-pointer h-[40px] w-full bg-white text-[#172B38] hover:bg-gray-100 rounded-xl py-4 mb-4 flex items-center justify-center text-base font-medium shadow-lg">
                 <Search className="w-[24px] h-[24px]" />
-                <span className="font-bold">
+                <span className="font-bold text-[14px]">
                   집안 곳곳에 오줌을 뿌리고 다녀요.
                 </span>
               </Button>

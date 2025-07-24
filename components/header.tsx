@@ -45,7 +45,7 @@ export default function Header({ onApplyClick }: HeaderProps) {
       </div>
 
       {/* Header Section */}
-      <div className="px-8 pt-12 pb-0 bg-[#F7F4EF]">
+      <div className="px-8 pt-12 pb-[60px] bg-[#F7F4EF]">
         <h1 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
           <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
             동물병원

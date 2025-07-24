@@ -25,7 +25,7 @@ export default function FloatingChatInput() {
       <div className="max-w-4xl mx-auto">
         <form
           onSubmit={handleChatSubmit}
-          className="flex items-end space-x-3 rounded-2xl py-3 border bg-white border-gray-300 shadow-sm">
+          className="flex items-end space-x-3 rounded-xl py-2 border bg-white border-gray-300 shadow-sm">
           <div className="flex-1">
             <input
               type="text"
@@ -36,12 +36,12 @@ export default function FloatingChatInput() {
             />
           </div>
 
-          <div className="flex items-center space-x-2 min-w-[50px]">
+          <div className="flex items-center space-x-2 min-w-[45px]">
             {/* 전송 버튼 */}
             <button
               type="submit"
               disabled={!message.trim()}
-              className="text-white p-3 rounded-full bg-[#000] hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
+              className="text-white p-2 rounded-full bg-[#000] hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
               <svg
                 width="20"
                 height="20"
