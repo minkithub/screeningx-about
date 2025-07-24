@@ -17,9 +17,7 @@ const mediaIcons = [
 ];
 
 export default function PetSelection() {
-  // 첫 번째 줄과 두 번째 줄을 위한 아이콘 분할
-  const firstRowIcons = mediaIcons.slice(0, 6);
-  const secondRowIcons = mediaIcons.slice(6);
+  const serviceURL = process.env.NEXT_PUBLIC_SERVICE_URL;
 
   return (
     <div className="px-6 py-4 bg-[#F7F4EF] overflow-hidden">
@@ -64,7 +62,9 @@ export default function PetSelection() {
               </p>
             </div>
 
-            <a href="https://www.petsoksok.com/?q=c1">
+            <a
+              href={`${serviceURL}?q=${'강아지가 숨어있기만 하고 밥을 안 먹어요.'}`}
+              target="_blank">
               {/* Service Selection Button */}
               <Button
                 variant="secondary"

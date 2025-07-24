@@ -17,10 +17,7 @@ const mediaIcons = [
 ];
 
 export default function EtcSelection() {
-  // 첫 번째 줄과 두 번째 줄을 위한 아이콘 분할
-  const firstRowIcons = mediaIcons.slice(0, 6);
-  const secondRowIcons = mediaIcons.slice(6);
-
+  const serviceURL = process.env.NEXT_PUBLIC_SERVICE_URL;
   return (
     <div className="px-6 py-4 bg-[#F7F4EF] overflow-hidden">
       <div className="bg-gradient-to-b from-[#C6E7F9] to-[#0095EE] rounded-3xl shadow-2xl overflow-hidden relative mb-8">
@@ -57,7 +54,9 @@ export default function EtcSelection() {
               </p>
             </div>
 
-            <a href="https://www.petsoksok.com/?q=c3">
+            <a
+              href={`${serviceURL}?q=${'수술하고 하루가 지났는데 소변을 안 봐요.'}`}
+              target="_blank">
               {/* Service Selection Button */}
               <Button
                 variant="secondary"

@@ -17,9 +17,7 @@ const mediaIcons = [
 ];
 
 export default function CatSelection() {
-  // 첫 번째 줄과 두 번째 줄을 위한 아이콘 분할
-  const firstRowIcons = mediaIcons.slice(0, 6);
-  const secondRowIcons = mediaIcons.slice(6);
+  const serviceURL = process.env.NEXT_PUBLIC_SERVICE_URL;
 
   return (
     <div className="px-6 py-4 bg-[#F7F4EF] overflow-hidden">
@@ -57,7 +55,9 @@ export default function CatSelection() {
               </p>
             </div>
 
-            <a href="https://www.petsoksok.com/?q=c2">
+            <a
+              href={`${serviceURL}?q=${'집안 곳곳에 오줌을 뿌리고 다녀요.'}`}
+              target="_blank">
               {/* Service Selection Button */}
               <Button
                 variant="secondary"
