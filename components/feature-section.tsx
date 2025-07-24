@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 export default function FeatureSection() {
-  const slideImages = ['/pets/dog.mp4', '/pets/cat.mp4'];
+  const slideImages = ['/pets/dog.mp4', '/pets/cat.mp4', '', ''];
 
-  const textImages = ['/r1.png', '/r2.png'];
+  const textImages = ['/r1.png', '/r2.png', '/s1.png', '/s2.png'];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideStyles, setSlideStyles] = useState({
     width: '180px',
@@ -367,24 +367,40 @@ export default function FeatureSection() {
                     transform: 'scale(1)',
                     marginLeft: '10%',
                   }}>
-                  <Image
-                    src={textImages[index]}
-                    alt={`슬라이드 ${index + 1}`}
-                    width={parseInt(slideStyles.width)}
-                    height={parseInt(slideStyles.height)}
-                    className="object-contain mt-2"
-                    priority={index === currentSlide}
-                  />
-                  <video
-                    src={imageSrc}
-                    width={parseInt(slideStyles.width)}
-                    height={parseInt(slideStyles.height)}
-                    className="object-contain rounded-sm mt-2"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  />
+                  {(index === 0 || index === 1) && (
+                    <>
+                      <Image
+                        src={textImages[index]}
+                        alt={`슬라이드 ${index + 1}`}
+                        width={parseInt(slideStyles.width)}
+                        height={parseInt(slideStyles.height)}
+                        className="object-contain mt-2"
+                        priority={index === currentSlide}
+                      />
+                      <video
+                        src={imageSrc}
+                        width={parseInt(slideStyles.width)}
+                        height={parseInt(slideStyles.height)}
+                        className="object-contain rounded-sm mt-2"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    </>
+                  )}
+                  {(index === 2 || index === 3) && (
+                    <>
+                      <Image
+                        src={textImages[index]}
+                        alt={`슬라이드 ${index + 1}`}
+                        width={parseInt(slideStyles.width)}
+                        height={parseInt(slideStyles.height)}
+                        className="object-contain mt-2"
+                        priority={index === currentSlide}
+                      />
+                    </>
+                  )}
                 </div>
               );
             })}
