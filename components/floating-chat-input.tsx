@@ -14,7 +14,8 @@ export default function FloatingChatInput() {
 
     // URL에 메시지를 쿼리 파라미터로 담아서 리다이렉트
     const targetURL = `${serviceURL}?q=${encodeURIComponent(message)}`;
-    window.location.href = targetURL;
+    // window.location.href = targetURL;
+    window.open(targetURL, '_blank');
 
     // 입력창 초기화
     setMessage('');
