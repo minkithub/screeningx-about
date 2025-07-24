@@ -25,7 +25,7 @@ export default function FloatingChatInput() {
       <div className="max-w-4xl mx-auto">
         <form
           onSubmit={handleChatSubmit}
-          className="flex items-end space-x-3 rounded-lg py-3 border bg-white border-gray-300 shadow-sm">
+          className="flex items-end space-x-3 rounded-2xl py-3 border bg-white border-gray-300 shadow-sm">
           <div className="flex-1">
             <input
               type="text"
@@ -36,7 +36,7 @@ export default function FloatingChatInput() {
             />
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 min-w-[50px]">
             {/* 전송 버튼 */}
             <button
               type="submit"

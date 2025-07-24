@@ -70,7 +70,7 @@ export default function PetSelection() {
                 variant="secondary"
                 className="cursor-pointer h-[40px] w-full bg-white text-[#97463C] hover:bg-gray-100 rounded-xl py-4 mb-4 flex items-center justify-center text-base font-medium shadow-lg">
                 <Search className="w-[24px] h-[24px]" />
-                <span className="font-bold">
+                <span className="font-bold text-[14px]">
                   강아지가 숨어있기만 하고 밥을 안 먹어요.
                 </span>
               </Button>

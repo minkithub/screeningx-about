@@ -292,3 +292,24 @@
     max-width: 100%;
   }
 }
+.slot-container {
+  height: 45px;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 8px;
+  background: #fff6ec;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slot-track {
+  transition: transform 0.5s ease-in-out;
+}
+
+.slot-item {
+  height: 40px;
+}

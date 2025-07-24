@@ -33,7 +33,7 @@ export default function InfoSection() {
       <div className="">
         <div className="bg-white p-[10px] w-full h-[58px] flex gap-[10px] mb-[10px] rounded-xl">
           <div className="w-[38px] h-[38px]">
-            <Image src={'/logo1.png'} width={38} height={38} alt=""></Image>
+            <Image src={'/logo1.svg'} width={38} height={38} alt=""></Image>
           </div>
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">
@@ -46,7 +46,7 @@ export default function InfoSection() {
         </div>
         <div className="bg-white p-[10px] w-full h-[58px] flex gap-[10px] mb-[10px] rounded-xl">
           <div className="w-[38px] h-[38px]">
-            <Image src={'/logo2.png'} width={38} height={38} alt=""></Image>
+            <Image src={'/logo2.svg'} width={38} height={38} alt=""></Image>
           </div>
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">
@@ -59,7 +59,7 @@ export default function InfoSection() {
         </div>
         <div className="bg-white p-[10px] w-full h-[58px] flex gap-[10px] mb-[10px] rounded-xl">
           <div className="w-[38px] h-[38px]">
-            <Image src={'/logo3.png'} width={38} height={38} alt=""></Image>
+            <Image src={'/logo3.svg'} width={38} height={38} alt=""></Image>
           </div>
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">반려동물 맞춤 질문 </div>
@@ -70,7 +70,7 @@ export default function InfoSection() {
         </div>
         <div className="bg-white p-[10px] w-full h-[58px] flex gap-[10px] mb-[10px] rounded-xl">
           <div className="w-[38px] h-[38px]">
-            <Image src={'/logo4.png'} width={38} height={38} alt=""></Image>
+            <Image src={'/logo4.svg'} width={38} height={38} alt=""></Image>
           </div>
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">

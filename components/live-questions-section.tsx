@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 
 const sampleQuestions = [
-  '상처에서 진물/피가 조금씩 나는데 병원에 다시 가봐야 할까요?',
-  '밥을 전혀 안 먹고 물도 안 마셔요. 억지로라도 먹여야 할까요?',
-  '화장실을 잘 가리던 아이인데, 이사 후 자꾸 이불이나 소파에 소변 실수를 해요.',
+  '상처에서 진물/피가 조금씩 나는데 병원에 가봐야 할까요?',
+  '밥을 전혀 안 먹어요. 억지로라도 먹여야 할까요?',
+  '화장실을 잘 가리던 아이인데, 이사 후 자꾸 소변 실수를 해요.',
   '강아지가 갑자기 설사를 해요. 병원에 가야 할까요?',
   '아이가 계속 낑낑대고 몸을 떠는데, 많이 아픈 걸까요?',
   '이사 온 지 3일째인데 침대 밑에서 나오질 않아요. 굶고 있는데 괜찮을까요?',
@@ -26,11 +26,12 @@ export default function LiveQuestionsSection() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const serviceURL = process.env.NEXT_PUBLIC_SERVICE_URL;
 
-  // 3초마다 질문 변경
+  const [index, setIndex] = useState(0);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentQuestionIndex((prev) => (prev + 1) % sampleQuestions.length);
-    }, 3000);
+      setIndex((prev) => (prev + 1) % sampleQuestions.length);
+    }, 3000); // 2초마다 스위칭
 
     return () => clearInterval(interval);
   }, []);
@@ -62,11 +63,10 @@ export default function LiveQuestionsSection() {
         </p>
 
         {/* 검색창 모양의 UI */}
-        <div
+        {/* <div
           className="relative max-w-md mx-auto"
           onClick={handleQuestionClick}>
           <div className="flex items-center bg-gray-50 border-2 border-blue-500 rounded-2xl px-2 py-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-            {/* 검색 아이콘 */}
             <svg
               className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0"
               fill="none"
@@ -80,10 +80,39 @@ export default function LiveQuestionsSection() {
               />
             </svg>
 
-            {/* 질문 텍스트 */}
             <span className="text-blue-600 font-bold text-left flex-1 transition-all duration-500 text-sm">
               {sampleQuestions[currentQuestionIndex]}
             </span>
+          </div>
+        </div> */}
+
+        <div
+          className="slot-container border-blue-500 border-2 rounded-2xl "
+          onClick={handleQuestionClick}>
+          <div
+            className="slot-track  "
+            style={{ transform: `translateY(-${index * 40}px)` }}>
+            {sampleQuestions.map((item, i) => (
+              <div
+                className="slot-item flex items-center bg-gray-50  px-2 py-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                key={i}>
+                <svg
+                  className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <span className="text-blue-600 font-bold text-left flex-1 transition-all duration-500 text-sm">
+                  {item}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
