@@ -50,9 +50,20 @@ export default function LiveQuestionsSection() {
     <section className="py-16 px-6 bg-[#F7F4EF]">
       <div className="max-w-4xl mx-auto text-center">
         {/* 제목 */}
-        <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-black to-blue-400 bg-clip-text text-transparent">
-          답변이 궁금하다면? <br />
-          지금 대화해보세요.
+        <h2 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
+          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
+            동물병원
+          </span>
+          과{' '}
+          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
+            행동 클리닉
+          </span>
+          을
+          <br />
+          내 손 안으로 쏙! 24시간
+          <br />
+          펫쏙쏙에 물어보세요.
+          <br />
         </h2>
 
         {/* 설명 */}

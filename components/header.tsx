@@ -47,23 +47,17 @@ export default function Header({ onApplyClick }: HeaderProps) {
       {/* Header Section */}
       <div className="px-8 pt-12 pb-[60px] bg-[#F7F4EF]">
         <h1 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
-          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
-            동물병원
+          더이상 잘못된 정보로
+          <br />
+          우리 아이를
+          <br />
+          <span className="bg-gradient-to-r to-[#4AD968] from-[#155EEF] bg-clip-text text-transparent">
+            위험에 빠뜨리지 마세요!
           </span>
-          과{' '}
-          <span className="bg-gradient-to-r to-[#7699de] from-[#155EEF] bg-clip-text text-transparent">
-            행동 클리닉
-          </span>
-          을
-          <br />
-          내 손 안으로 쏙! 24시간
-          <br />
-          펫쏙쏙에 물어보세요.
-          <br />
         </h1>
 
         <p className="text-gray-700 text-base  leading-relaxed text-center">
-          유명 수의학 논문과 행동 전문가 지식만을 학습해
+          펫쏙쏙은 수의학 논문과 전문가 지식만을 학습해
           <br />
           <span className="font-bold">ChatGPT보다 신뢰할 수 있는 정보</span>만
           알려드려요.
