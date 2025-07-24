@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 export default function FeatureSection() {
-  const slideImages = ['/pets/gif1.gif', '/pets/gif2.gif'];
+  const slideImages = ['/pets/dog.mp4', '/pets/cat.mp4'];
 
   const textImages = ['/r1.png', '/r2.png'];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -375,13 +375,15 @@ export default function FeatureSection() {
                     className="object-contain mt-2"
                     priority={index === currentSlide}
                   />
-                  <Image
+                  <video
                     src={imageSrc}
-                    alt={`슬라이드 ${index + 1}`}
                     width={parseInt(slideStyles.width)}
                     height={parseInt(slideStyles.height)}
                     className="object-contain rounded-sm mt-2"
-                    priority={index === currentSlide}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                   />
                 </div>
               );
