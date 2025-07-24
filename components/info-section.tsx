@@ -53,7 +53,7 @@ export default function InfoSection() {
               거짓 정보 없는 정확한 답변
             </div>
             <div className="text-[12px]">
-              전문 학술지, 신뢰 만땅 전문가 정보만 학습했어요.{' '}
+              신뢰 만땅 논문, 전문가 정보만 학습했어요.{' '}
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function InfoSection() {
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">반려동물 맞춤 질문 </div>
             <div className="text-[12px]">
-              펫쏙쏙AI가 내 반려동물에 맞춰서 답변을 작성해줘요.{' '}
+              견종, 나이, 병력에 맞춰서 답변을 작성해줘요.{' '}
             </div>
           </div>
         </div>
