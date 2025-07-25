@@ -76,9 +76,7 @@ export default function InfoSection() {
             <div className="font-bold text-[15px]">
               같은 정확도, 훨씬 더 저렴한 요금{' '}
             </div>
-            <div className="text-[12px]">
-              펙쏙쏙 2,900원 VS ChatGPT 27,000원{' '}
-            </div>
+            <div className="text-[12px]">펙쏙쏙 0원 VS ChatGPT 27,000원 </div>
           </div>
         </div>
       </div>

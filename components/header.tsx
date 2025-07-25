@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { Send } from 'lucide-react';
 
 interface HeaderProps {
   onApplyClick?: () => void;
@@ -62,6 +62,15 @@ export default function Header({ onApplyClick }: HeaderProps) {
           <span className="font-bold">ChatGPT보다 신뢰할 수 있는 정보</span>만
           알려드려요.
         </p>
+
+        <div className="flex justify-center">
+          <a
+            href="https://www.petsoksok.com"
+            className="bg-gradient-to-r from-[#4AD968] to-[#155EEF] text-white px-4 py-2 mt-4 rounded-md">
+            완전 무료! 바로 질문하기
+            <Send className="inline-block ml-2 w-4 h-4" />
+          </a>
+        </div>
       </div>
     </div>
   );
