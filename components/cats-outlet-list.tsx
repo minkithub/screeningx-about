@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown, Search, Send } from 'lucide-react';
 import Image from 'next/image';
 
 const mediaIcons = [
@@ -42,15 +42,15 @@ export default function CatSelection() {
           style={{
             marginTop: '-20px',
           }}>
-          <div className="bg-gradient-to-b from-[#A5B0BB] to-[#101921] rounded-3xl px-6 py-6 shadow-xl relative">
+          <div className="bg-gradient-to-b from-[#C1C4CA] to-[#fff] rounded-3xl px-6 py-6 shadow-xl relative">
             <div className="text-center mb-6">
-              <p className="text-white font-semibold text-lg mb-1">
+              <p className="text-black font-semibold text-[14px]">
                 이사한 집사
               </p>
-              <h2 className="text-white text-2xl font-bold mb-2">
-                최근에 고양이랑 이사했어요
+              <h2 className="text-black text-2xl font-bold mb-1">
+                최근에 고양이랑 이사했어요.{' '}
               </h2>
-              <p className="text-[#fff] text-light">
+              <p className="text-[#000] text-[14px]">
                 고양이가 새집에 빨리 적응했으면 좋겠어요
               </p>
             </div>
@@ -61,17 +61,17 @@ export default function CatSelection() {
               {/* Service Selection Button */}
               <Button
                 variant="secondary"
-                className="cursor-pointer h-[40px] w-full bg-white text-[#172B38] hover:bg-gray-100 rounded-xl py-4 mb-4 flex items-center justify-center text-base font-medium shadow-lg">
-                <Search className="w-[24px] h-[24px]" />
+                className="cursor-pointer h-[40px] w-full bg-[#172B38] text-[#fff] hover:bg-gray-100 rounded-xl py-4 mb-4 flex items-center justify-center text-base font-medium shadow-lg">
                 <span className="font-bold text-[14px]">
-                  집안 곳곳에 오줌을 뿌리고 다녀요.
+                  집안 곳곳에 오줌을 싸요. 어떻게 멈춰요?{' '}
                 </span>
+                <Send className="w-[24px] h-[24px]" />
               </Button>
             </a>
 
             {/* Card Scroll Indicator */}
             <div className="flex justify-center">
-              <div className="text-white animate-bounce">
+              <div className="text-black animate-bounce">
                 <ChevronDown className="h-4 w-4" />
               </div>
             </div>
