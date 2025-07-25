@@ -63,10 +63,10 @@ export default function Header({ onApplyClick }: HeaderProps) {
           알려드려요.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-8">
           <a
             href="https://www.petsoksok.com"
-            className="bg-gradient-to-r from-[#4AD968] to-[#155EEF] text-white px-4 py-2 mt-4 rounded-md">
+            className="bg-gradient-to-r font-bold from-[#4AD968] to-[#155EEF] text-white px-4 py-2 rounded-md">
             완전 무료! 바로 질문하기
             <Send className="inline-block ml-2 w-4 h-4" />
           </a>
