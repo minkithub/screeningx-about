@@ -74,9 +74,9 @@ export default function InfoSection() {
           </div>
           <div className="flex flex-col ">
             <div className="font-bold text-[15px]">
-              같은 정확도, 훨씬 더 저렴한 요금{' '}
+              더 높은 정확도, 완전 무료 서비스!
             </div>
-            <div className="text-[12px]">펙쏙쏙 0원 VS ChatGPT 27,000원 </div>
+            <div className="text-[12px]">펫쏙쏙 0원 VS ChatGPT 27,000원 </div>
           </div>
         </div>
       </div>
