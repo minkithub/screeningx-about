@@ -37,7 +37,12 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-700 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>© 2025 펫쏙쏙. All rights reserved.</p>
+            <div className="flex flex-col space-y-1">
+              <p>회사명: 델프</p>
+              <p>대표: 이재승</p>
+              <p>사업자등록번호: 636-55-00721</p>
+              <p>© 2025 펫쏙쏙. All rights reserved.</p>
+            </div>
           </div>
         </div>
       </div>
