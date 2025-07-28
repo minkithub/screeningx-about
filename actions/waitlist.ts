@@ -18,6 +18,12 @@ interface CompressedImage {
   size: number;
 }
 
+interface VeterinarianContactData {
+  clinicName: string;
+  directorName: string;
+  phone: string;
+}
+
 export async function sendSlackNotification(message: string) {
   try {
     await web.chat.postMessage({
@@ -190,6 +196,64 @@ export async function sendApplicationNotification(data: ApplicationData) {
     });
   } catch (error) {
     console.error('Error sending application notification:', error);
+    throw error;
+  }
+}
+
+export async function sendVeterinarianContact(data: VeterinarianContactData) {
+  const message = `🏥 수의사 문의 접수
+
+*병원명:* ${data.clinicName}
+*대표자 이름:* ${data.directorName}
+*연락처:* ${data.phone}
+
+접수 시간: ${new Date().toLocaleString('ko-KR')}`;
+
+  const blocks: any[] = [
+    {
+      type: 'header',
+      text: {
+        type: 'plain_text',
+        text: '🏥 수의사 문의 접수',
+      },
+    },
+    {
+      type: 'section',
+      fields: [
+        {
+          type: 'mrkdwn',
+          text: `*병원명:*\n${data.clinicName}`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*대표자 이름:*\n${data.directorName}`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*연락처:*\n${data.phone}`,
+        },
+      ],
+    },
+  ];
+
+  blocks.push({
+    type: 'context',
+    elements: [
+      {
+        type: 'mrkdwn',
+        text: `접수 시간: ${new Date().toLocaleString('ko-KR')}`,
+      },
+    ],
+  });
+
+  try {
+    await web.chat.postMessage({
+      channel: channelId!,
+      text: message,
+      blocks: blocks,
+    });
+  } catch (error) {
+    console.error('Error sending veterinarian contact:', error);
     throw error;
   }
 }

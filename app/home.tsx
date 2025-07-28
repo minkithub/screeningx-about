@@ -11,6 +11,7 @@ import CatSelection from '@/components/cats-outlet-list';
 import EtcSelection from '@/components/etc-outlet-list';
 import InfoSection from '@/components/info-section';
 import LiveQuestionsSection from '@/components/live-questions-section';
+import VeterinarianContactSection from '@/components/veterinarian-contact-section';
 
 type Section = 'header' | 'feature' | 'references' | 'chat' | 'footer';
 
@@ -103,6 +104,10 @@ export default function Home() {
         {/* Live Questions Section */}
         <div>
           <LiveQuestionsSection />
+        </div>
+
+        <div>
+          <VeterinarianContactSection />
         </div>
 
         {/* Footer */}
