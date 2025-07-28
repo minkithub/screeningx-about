@@ -24,10 +24,14 @@ export default function Footer() {
               <p className="text-gray-400">
                 출시 알림 및 업데이트 소식을 이메일로 받아보세요
               </p>
-              <a href="#" className="hover:text-cyan-400 transition-colors">
+              <a
+                href="https://veiled-melon-ead.notion.site/1b924965fbc68054a95de09c6f058932"
+                className="hover:text-cyan-400 transition-colors">
                 이용약관
               </a>
-              <a href="#" className="hover:text-cyan-400 transition-colors">
+              <a
+                href="https://veiled-melon-ead.notion.site/1b924965fbc68085be32eb9131f03a16"
+                className="hover:text-cyan-400 transition-colors">
                 개인정보처리방침
               </a>
             </div>
