@@ -65,7 +65,7 @@ export default function Header({ onApplyClick }: HeaderProps) {
 
         <div className="flex justify-center mt-8">
           <a
-            href="https://www.petsoksok.com"
+            href="https://petsoksok.vercel.app/"
             className="bg-gradient-to-r font-bold from-[#4AD968] to-[#155EEF] text-white px-4 py-2 rounded-md">
             완전 무료! 바로 질문하기
             <Send className="inline-block ml-2 w-4 h-4" />
