@@ -33,7 +33,7 @@ export default function FloatingChatInput() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="반려동물에 대한 무엇이든 물어보세요"
-              className="w-full px-2 py-2 focus:outline-none text-gray-700 placeholder-gray-400"
+              className="w-full px-5 py-2 focus:outline-none text-gray-700 placeholder-gray-400"
             />
           </div>
 

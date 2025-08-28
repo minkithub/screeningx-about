@@ -142,7 +142,6 @@ export default function VeterinarianContactSection() {
               placeholder="연락처를 입력해주세요"
             />
           </div>
-
           <div className="text-center pt-4">
             <Button
               type="submit"
