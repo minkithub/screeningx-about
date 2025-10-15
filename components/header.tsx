@@ -21,7 +21,7 @@ export default function Header({ onApplyClick }: HeaderProps) {
       {/* Top Navigation */}
       <div className="px-8 pt-6 pb-2">
         <div className="flex justify-start">
-          <div className="text-xl font-bold bg-clip-text">ScreeningX</div>
+          <div className="text-xl font-bold bg-clip-text"></div>
         </div>
       </div>
 

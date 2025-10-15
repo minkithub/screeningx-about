@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 export default function FeatureSection() {
-  const slideImages = ['/pets/dog.mp4', '/pets/cat.mp4', '', ''];
+  // const slideImages = ['/pets/dog.mp4', '/pets/cat.mp4', '', ''];
+  const slideImages = ['', '', '', ''];
 
-  const textImages = ['/r1.png', '/r2.png', '/s1.png', '/s2.png'];
+  const textImages = ['/s1.png', '/s2.png', '/s3.png', '/s4.png'];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideStyles, setSlideStyles] = useState({
     width: '180px',

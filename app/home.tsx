@@ -80,17 +80,15 @@ export default function Home() {
         </div>
 
         {/* References Section */}
-        <div ref={referencesRef}>
+        {/* <div ref={referencesRef}>
           <References />
-        </div>
+        </div> */}
         <div ref={petOutletListRef}>
           <PetsOutletList />
         </div>
-
         <div ref={catOutletListRef}>
           <CatSelection />
         </div>
-
         <div ref={etcOutletListRef}>
           <EtcSelection />
         </div>
