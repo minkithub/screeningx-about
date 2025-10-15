@@ -4,36 +4,38 @@ import './globals.css';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://petsoksok.vercel.app'),
-  title: '펫쏙쏙 - AI 반려동물 상담 서비스',
+  metadataBase: new URL('https://screeningx-about.vercel.app/'),
+  title: '스크리닝X - AI 기반 브이로거 전문 추천 서비스',
   description:
-    '수의학 기반 신뢰도 높은 정보로 AI가 반려동물 건강 상담을 제공합니다. 24시간 언제든지 반려동물 케어 정보를 받아보세요.',
-  generator: '펫쏙쏙',
+    '브이로거의 영상 데이터를 AI가 정밀 분석해서 브래드에 꼭 맞는 브이로거만을 추천합니다.',
+  generator: '스크리닝X',
   keywords: [
-    '반려동물',
-    '펫',
-    '수의학',
-    'AI 상담',
-    '반려견',
-    '반려묘',
-    '펫케어',
-    '동물병원',
-    '수의사',
-    '반려동물 건강',
+    '유튜버',
+    '유튜브',
+    'AI 분석',
+    '인플루언서',
+    '마케팅',
+    '인플루언서 마케팅',
+    '브이로거',
+    '브랜드',
+    '뷰티',
+    '패션',
+    '건기식',
+    '건강기능식품',
   ],
-  authors: [{ name: '펫쏙쏙' }],
+  authors: [{ name: '스크리닝X' }],
   openGraph: {
-    title: '펫쏙쏙 - AI 반려동물 상담 서비스',
+    title: '스크리닝X - AI 기반 브이로거 전문 추천 서비스',
     description:
-      '수의학 기반 신뢰도 높은 정보로 AI가 반려동물 건강 상담을 제공합니다. 24시간 언제든지 반려동물 케어 정보를 받아보세요.',
-    url: 'https://petsoksok.vercel.app/',
-    siteName: '펫쏙쏙',
+      '브이로거의 영상 데이터를 AI가 정밀 분석해서 브래드에 꼭 맞는 브이로거만을 추천합니다.',
+    url: 'https://screeningx-about.vercel.app/',
+    siteName: '스크리닝X',
     images: [
       {
         url: '/og_image.png',
         width: 1200,
         height: 630,
-        alt: '펫쏙쏙 - AI 반려동물 상담 서비스',
+        alt: '스크리닝X - AI 기반 브이로거 전문 추천 서비스',
       },
     ],
     locale: 'ko_KR',
@@ -41,9 +43,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '펫쏙쏙 - AI 반려동물 상담 서비스',
+    title: '스크리닝X - AI 기반 브이로거 전문 추천 서비스',
     description:
-      '수의학 기반 신뢰도 높은 정보로 AI가 반려동물 건강 상담을 제공합니다. 24시간 언제든지 반려동물 케어 정보를 받아보세요.',
+      '브이로거의 영상 데이터를 AI가 정밀 분석해서 브래드에 꼭 맞는 브이로거만을 추천합니다.',
     images: ['/og_image.png'],
   },
   robots: {
@@ -59,6 +61,7 @@ export const metadata: Metadata = {
   },
 };
 
+// todo : 여기 clarity 새롭게 만들어서 적용하기.
 export default function RootLayout({
   children,
 }: Readonly<{

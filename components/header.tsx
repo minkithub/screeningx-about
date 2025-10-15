@@ -21,7 +21,7 @@ export default function Header({ onApplyClick }: HeaderProps) {
       {/* Top Navigation */}
       <div className="px-8 pt-6 pb-2">
         <div className="flex justify-start">
-          <div className="text-xl font-bold bg-clip-text">펫쏙쏙</div>
+          <div className="text-xl font-bold bg-clip-text">ScreeningX</div>
         </div>
       </div>
 
@@ -57,14 +57,17 @@ export default function Header({ onApplyClick }: HeaderProps) {
         </h1>
 
         <p className="text-gray-700 text-base  leading-relaxed text-center">
-          스크리닝X는 국내 최초 브이로그 전문 유튜브 추천 서비스로
+          스크리닝X는 국내 최초
+          <br />브이로그 전문 유튜브 추천 서비스로
           <br />
-          <span className="font-bold">브이로거의 영상 데이터를 이용해</span>브랜드에 딱 맞는 유튜버만 추천해 드려요.
+          <span className="font-bold">브이로거의 영상 데이터를 이용해</span>
+          <br />브랜드에 딱 맞는 유튜버만 추천해 드려요.
         </p>
 
         <div className="flex justify-center mt-8">
           <a
-            href="https://petsoksok.vercel.app/"
+            href="https://screeningx.kr/"
+            target="_blank"
             className="bg-gradient-to-r font-bold from-[#4AD968] to-[#155EEF] text-white px-4 py-2 rounded-md">
             지금 바로 추천받기
             <Send className="inline-block ml-2 w-4 h-4" />

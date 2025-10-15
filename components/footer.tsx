@@ -9,10 +9,10 @@ export default function Footer() {
           {/* Company Info */}
           <div className="text-left">
             <h3 className="text-xl font-bold bg-gradient-to-r from-green-300 to-cyan-500 bg-clip-text text-transparent mb-4">
-              펫쏙쏙
+              스크리닝X
             </h3>
             <p className="text-gray-300 text-sm leading-relaxed">
-              반려동물과 함께하는 건강한 생활을 위한 맞춤형 상담 서비스
+              국내 최초 브이로거 전문 추천 서비스
             </p>
           </div>
 
@@ -20,17 +20,19 @@ export default function Footer() {
           <div className="text-left">
             <h4 className="text-lg font-semibold mb-4">문의 및 뉴스레터</h4>
             <div className="flex flex-col justify-left space-y-2 text-gray-300 text-sm">
-              <p>문의: msjantler@gmail.com</p>
+              <p>문의: screeningx.cs@gmail.com</p>
               <p className="text-gray-400">
                 출시 알림 및 업데이트 소식을 이메일로 받아보세요
               </p>
               <a
-                href="https://veiled-melon-ead.notion.site/1b924965fbc68054a95de09c6f058932"
+                href="https://rare-donut-9c1.notion.site/28d8e5ffaa1c80c6a37ee7dae0c0ef1b?pvs=73"
+                target="_blank"
                 className="hover:text-cyan-400 transition-colors">
                 이용약관
               </a>
               <a
-                href="https://veiled-melon-ead.notion.site/1b924965fbc68085be32eb9131f03a16"
+                href="https://rare-donut-9c1.notion.site/28d8e5ffaa1c809590c3d30099978430?pvs=73"
+                target="_blank"
                 className="hover:text-cyan-400 transition-colors">
                 개인정보처리방침
               </a>
@@ -42,10 +44,10 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
             <div className="flex flex-col space-y-1">
-              <p>회사명: 델프</p>
-              <p>대표: 이재승</p>
-              <p>사업자등록번호: 636-55-00721</p>
-              <p>© 2025 펫쏙쏙. All rights reserved.</p>
+              <p>회사명: 스크리닝X</p>
+              <p>대표: 김민기</p>
+              <p>사업자등록번호: 361-59-00922</p>
+              <p>© 2025 ScreeninX. All rights reserved.</p>
             </div>
           </div>
         </div>
