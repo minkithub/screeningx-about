@@ -47,27 +47,26 @@ export default function Header({ onApplyClick }: HeaderProps) {
       {/* Header Section */}
       <div className="px-8 pt-12 pb-[60px] bg-[#F7F4EF]">
         <h1 className="text-3xl font-bold leading-tight mb-6 text-center text-black">
-          더이상 잘못된 정보로
+          이제 이유있게
           <br />
-          우리 아이를
+          브랜드에 딱 맞는
           <br />
           <span className="bg-gradient-to-r to-[#4AD968] from-[#155EEF] bg-clip-text text-transparent">
-            위험에 빠뜨리지 마세요!
+            유튜버를 추천 받으세요.
           </span>
         </h1>
 
         <p className="text-gray-700 text-base  leading-relaxed text-center">
-          펫쏙쏙은 수의학 논문과 전문가 지식만을 학습해
+          스크리닝X는 국내 최초 브이로그 전문 유튜브 추천 서비스로
           <br />
-          <span className="font-bold">ChatGPT보다 신뢰할 수 있는 정보</span>만
-          알려드려요.
+          <span className="font-bold">브이로거의 영상 데이터를 이용해</span>브랜드에 딱 맞는 유튜버만 추천해 드려요.
         </p>
 
         <div className="flex justify-center mt-8">
           <a
             href="https://petsoksok.vercel.app/"
             className="bg-gradient-to-r font-bold from-[#4AD968] to-[#155EEF] text-white px-4 py-2 rounded-md">
-            완전 무료! 바로 질문하기
+            지금 바로 추천받기
             <Send className="inline-block ml-2 w-4 h-4" />
           </a>
         </div>
